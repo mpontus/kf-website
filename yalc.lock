@@ -1,0 +1,9 @@
+{
+  "version": "v1",
+  "packages": {
+    "@centrifuge/fabric": {
+      "signature": "ea2e44e085c43d23ae96f98e81e0b414",
+      "file": true
+    }
+  }
+}
