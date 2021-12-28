@@ -8,9 +8,8 @@ module.exports = {
   },
   siteMetadata: {},
   plugins: [
-    {
-      resolve: `gatsby-plugin-mdx`,
-    },
+    "gatsby-plugin-mdx",
+    "gatsby-plugin-ts",
     {
       resolve: "gatsby-plugin-google-fonts",
       options: {
