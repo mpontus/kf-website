@@ -15,7 +15,7 @@
     "start": "gatsby develop"
   },
   "dependencies": {
-    "@centrifuge/fabric": "file:.yalc/@centrifuge/fabric",
+    "@centrifuge/fabric": "^1.0.0",
     "@mdx-js/mdx": "^1.6.22",
     "@mdx-js/react": "^1.6.22",
     "@types/styled-system": "^5.1.14",
@@ -46,5 +46,15 @@
     "prettier": "2.5.1",
     "typescript": "^4.5.4",
     "yalc": "^1.0.0-pre.53"
+  },
+  "workspaces": {
+    "packages": [
+      ".",
+      "./packages/@centrifuge/fabric"
+    ],
+    "nohoist": [
+      "**/@styled-components/**",
+      "**/@styled-components"
+    ]
   }
 }

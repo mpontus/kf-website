@@ -67,5 +67,8 @@
         "mobile": false
       }
     }
+  },
+  "dependencies": {
+    "@styled-system/should-forward-prop": "^5.1.5"
   }
 }

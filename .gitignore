@@ -2,3 +2,10 @@ node_modules/
 .cache/
 public
 .lerna-debug
+.idea
+.vscode
+.yalc
+.yarn
+build/
+lerna-debug.log
+yarn-error.log

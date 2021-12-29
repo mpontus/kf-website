@@ -10,9 +10,9 @@
     // "allowJs": true,
     "outDir": "./build" /* this won't be used by ts-loader */,
     /* other options... */
-    "baseUrl": ".",
-    "paths": { "*": ["packages/*", "node_modules/*"] },
-    "allowSyntheticDefaultImports": true
+    "paths": { "*": ["./packages/*", "./node_modules/*"] },
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true
   },
   "include": ["src"],
   "exclude": ["**/*.stories.ts(x)?"]

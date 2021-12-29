@@ -1,4 +1,6 @@
 {
-  "packages": ["*", "packages/*"],
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "packages": [".", "./packages/@centrifuge/fabric"],
   "version": "0.0.0"
 }
