@@ -36,12 +36,11 @@ export const a = Link
 export interface ImageProps extends ImgHTMLAttributes<any> {}
 export const Image = (props: ImageProps) => <Box as="img" {...props} />
 export const img = Image
-
 export const shortcodes = { h1, h2, h3, h4, h5, h6, a, p, img }
 
 // Lists
 
-type ListProps = BoxProps & {
+export type ListProps = BoxProps & {
   Text: React.ComponentType<TextProps>
 }
 export const List = (props: ListProps) => {

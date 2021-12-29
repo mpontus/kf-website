@@ -1,5 +1,4 @@
-import { BoxProps, FabricTheme } from '@centrifuge/fabric'
-import { ThemeBreakpoints } from '@centrifuge/fabric/dist/theme'
+import { FabricTheme } from '@centrifuge/fabric'
 import { baseTheme } from '@centrifuge/fabric/src/theme/tokens/baseTheme'
 import { modeDark } from '@centrifuge/fabric/src/theme/tokens/modeDark'
 import { useContext } from 'react'
@@ -19,7 +18,7 @@ function breakpoints<A = [number, number, number, number]>(A: A): { M: number; S
   return Object.assign(A, { M: A[0], S: A[1], L: A[2], XL: A[3] })
 }
 
-const theme = {
+export const defaultTheme = {
   ...baseTheme,
   breakpoints: breakpoints([480, 600, 1140, 1920]),
   fonts: { standard: 'Manrope,sans-serif' },
@@ -44,5 +43,3 @@ const theme = {
 export function useTheme(): Theme {
   return useContext(ThemeContext)
 }
-
-export default theme
