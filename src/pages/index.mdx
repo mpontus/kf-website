@@ -1,15 +1,31 @@
-import { Heading, Paragraph, Link, Image } from '../components/common'
-import { Layout, withSidebar, ExtraLargeSection } from '../components/layout'
+import { Container, Heading, Paragraph, Link, Image, Box } from '../components/common'
+import {
+  Layout,
+  Main,
+  Sidebar,
+  HiringSidebar,
+  SingleColumnLayout,
+  SidebarLayout,
+  withSidebar,
+  ExtraLargeSection,
+} from '../components/layout'
 import centrifuge from '../images/centrifuge-logo.svg'
 import kfactory from '../images/kfactory-logo.svg'
+import styled from 'styled-components'
 
-<!-- // export default withSidebar(<HiringSidebar />) -->
+export default styled(withSidebar(<HiringSidebar />))`
+  ${Main} {
+    padding: 40px 32px;
+  }
+`
 
-export default Layout
+<Image src={kfactory} height={87} />
 
-<Image src={kfactory} height={87} marginBottom={78} />
+<!-- Hero -->
 
-<Box maxHeight={396} />
+<Box height="600px" />
+
+<!-- Section -->
 
 <ExtraLargeSection label="About">
 
@@ -17,7 +33,11 @@ k/factory was founded by the original contributors to Centrifuge. It provides so
 
 </ExtraLargeSection>
 
+<!-- Section -->
+
 <ExtraLargeSection label="Work with us">
+
+k/factory is self-managed and remote friendly. You can read more about how we run things in our handbook.
 
 We have a big vision to change the rules of global trade: our DApp is live and gaining traction to lower the barriers of raising capital.
 
@@ -26,6 +46,8 @@ We offer competitive compensation based on your skills, not your gender or backg
 Learn more about who we are and why you should join here.
 
 </ExtraLargeSection>
+
+<!-- Footer -->
 
 <Footer align="center" fontFamily="Questrial" margin="2rem">
 

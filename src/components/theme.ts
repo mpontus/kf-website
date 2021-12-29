@@ -1,4 +1,5 @@
 import { FabricTheme } from '@centrifuge/fabric'
+import { ThemeSize } from '@centrifuge/fabric/dist/utils/types'
 import { baseTheme } from '@centrifuge/fabric/src/theme/tokens/baseTheme'
 import { modeDark } from '@centrifuge/fabric/src/theme/tokens/modeDark'
 import { useContext } from 'react'
@@ -12,6 +13,9 @@ export interface Theme extends FabricTheme {
       heading: TypographyProps
     }
   }
+  sidebar: {
+    size: ThemeSize
+  }
 }
 
 function breakpoints<A = [number, number, number, number]>(A: A): { M: number; S: number; L: number; XL: number } & A {
@@ -20,7 +24,25 @@ function breakpoints<A = [number, number, number, number]>(A: A): { M: number; S
 
 export const defaultTheme = {
   ...baseTheme,
-  breakpoints: breakpoints([480, 600, 1140, 1920]),
+  breakpoints: breakpoints(['480px', '600px', '1140px', '1920px']),
+  typography: {
+    body1: {
+      fontSize: ['16px', '16px', '20px'],
+      fontWeight: 400,
+      lineHeight: 1.5,
+    },
+    heading1: {
+      fontSize: ['4rem', '5.25rem', '7.4rem'],
+      fontWeight: 600,
+      lineHeight: 1,
+    },
+  },
+  sizes: {
+    small: 120,
+    container: { M: 1140, L: 1420 },
+    iconSmall: 16,
+    iconMedium: 23,
+  },
   fonts: { standard: 'Manrope,sans-serif' },
   fontSizes: ['219px'],
   colors: {
@@ -33,11 +55,13 @@ export const defaultTheme = {
   section: {
     small: {},
     xlarge: {
-      heading: { fontSize: ['7.4rem'] },
+      heading: { variant: 'heading1' },
       box: { marginBottom: ['20rem'] },
     },
   },
-  sidebar: {},
+  sidebar: {
+    size: 'small',
+  },
 }
 
 export function useTheme(): Theme {
