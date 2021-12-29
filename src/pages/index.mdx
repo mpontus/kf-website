@@ -1,15 +1,23 @@
-import centrifugeLogo from '../images/centrifuge-logo.svg'
-import Layout from '../components/Layout'
+import { Heading, Paragraph, Link, Image } from '../components/common'
+import Layout, { withSidebar, ExtraLargeSection } from '../components/layout'
+import centrifuge from '../images/centrifuge-logo.svg'
+import kfactory from '../images/kfactory-logo.svg'
+
+<!-- // export default withSidebar(<HiringSidebar />) -->
 
 export default Layout
 
-<Box height="400px" />
+<Image src={kfactory} height={87} marginBottom={78} />
 
-<Heading size="xlarge">About</Heading>
+<Box maxHeight={396} />
+
+<ExtraLargeSection label="About">
 
 k/factory was founded by the original contributors to Centrifuge. It provides software development and other services for Centrifuge chain as well as other parts of the Centrifuge ecosystem.
 
-<Heading size="xlarge">Work with us</Heading>
+</ExtraLargeSection>
+
+<ExtraLargeSection label="Work with us">
 
 We have a big vision to change the rules of global trade: our DApp is live and gaining traction to lower the barriers of raising capital.
 
@@ -17,7 +25,12 @@ We offer competitive compensation based on your skills, not your gender or backg
 
 Learn more about who we are and why you should join here.
 
-<center>
-  k/factory is a contributor to
-  <Image src={centrifugeLogo} />
-</center>
+</ExtraLargeSection>
+
+<Footer align="center" fontFamily="Questrial" margin="2rem">
+
+k/factory is a contributor to
+
+<Image src={centrifuge} width={184} height={55} />
+
+</Footer>
