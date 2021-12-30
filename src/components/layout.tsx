@@ -1,12 +1,12 @@
-import { ContainerProps, Grid } from '@centrifuge/fabric'
-import { Flex } from '@centrifuge/fabric/dist/components/Flex'
+import { ContainerProps, Grid, LayoutGrid, LayoutGridItem } from '@centrifuge/fabric'
+import { Flex, FlexProps } from '@centrifuge/fabric/dist/components/Flex'
 import { MDXProvider } from '@mdx-js/react'
 import React, { memo } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import { Box, BoxProps, Container, GlobalStyle, Heading, List, shortcodes, Text } from './common'
+import { Box, BoxProps, Container, GlobalStyle, Heading, Image, List, shortcodes, Text, Paragraph } from './common'
 import { defaultTheme, Theme, useTheme } from './theme'
 
-// Layout HOCs
+// Providers
 
 type Decorator<R = {}> = <P>(Component: React.ComponentType<P>) => React.ComponentType<R & P>
 
@@ -34,36 +34,73 @@ function enhance<P>(component: React.ComponentType<P>) {
 // Layout
 
 type LayoutProps = BoxProps & {
-  Container?: React.ComponentType<ContainerProps>
   children: React.ReactNode
+  Container?: React.ComponentType<ContainerProps>
 }
 
-export const Layout = styled(enhance(Container))``
+export const Layout = styled(enhance(Flex))`
+  font-family: Manrope, sans-serif;
+  flex-direction: column;
+  justify-content: center;
+`
+
+export const Header = styled(Box.withComponent('header'))``
+
+export const defaultHeader = (
+  <Header marginTop="40px">
+    <Image src={require('../images/kfactory-logo.svg').default} height={87} />
+  </Header>
+)
+
+export const Footer = styled(Box.withComponent('footer'))``
+
+export const defaultFooter = (
+  <Footer margin="40px auto">
+    <Paragraph marginBottom="28px" fontFamily="Questrial">
+      k/factory is a contributor to
+    </Paragraph>
+    <Image src={require('../images/centrifuge-logo.svg').default} width={184} height={55} marginLeft={16} />
+  </Footer>
+)
 
 export const Main = styled(Box.withComponent('main'))``
 
+export type SingleColumnLayoutProps = LayoutProps & {
+  header?: React.ReactNode
+  footer?: React.ReactNode
+}
+
 export const SingleColumnLayout = styled((props: LayoutProps) => {
-  const { Container = Main, children, ...rest } = props
+  const { header = defaultHeader, footer = defaultFooter, children, ...rest } = props
   return (
-    <Flex as={Layout} {...rest}>
-      <Container>{children}</Container>
-    </Flex>
+    <Layout {...rest}>
+      {header}
+      <Main>{children}</Main>
+      {footer}
+    </Layout>
   )
 })``
 
 // Sidebar
 
 export type SidebarLayoutProps = LayoutProps & {
+  header?: React.ReactNode
+  footer?: React.ReactNode
   sidebar: React.ReactNode
 }
 
 export const SidebarLayout = styled((props: SidebarLayoutProps) => {
-  const { Container = Main, children, sidebar, ...rest } = props
+  const { header = defaultHeader, footer = defaultFooter, children, sidebar, ...rest } = props
+
   return (
-    <Grid as={Layout} columns={2} minColumnWidth={400} {...rest}>
-      <Container flex="1">{children}</Container>
-      {sidebar}
-    </Grid>
+    <Flex as={Layout} flexDirection="column" {...props}>
+      {header}
+      <Grid columns={[1, 1, 1, 2]} justifyContent="start">
+        <Main>{children}</Main>
+        {sidebar}
+      </Grid>
+      {footer}
+    </Flex>
   )
 })``
 
@@ -81,59 +118,12 @@ export const Section = styled((props: SectionProps & BoxProps) => {
   const themeProps = useTheme()?.section[variant]
 
   return (
-    <Box {...themeProps?.box} {...rest} marginBottom={100}>
+    <Box {...themeProps?.box} {...rest}>
       <Heading {...themeProps?.heading}>{label}</Heading>
       {children}
     </Box>
   )
-})`
-  ${Heading} {
-    border-bottom: 2px solid #fff;
-  }
-`
+})``
 
 export const SmallSection = styled(Section).attrs({ variant: 'small' })``
 export const ExtraLargeSection = styled(Section).attrs({ variant: 'xlarge' })``
-
-// Hiring sidebar
-
-export const HiringSidebar = styled((props: BoxProps) => (
-  <Box as="aside" position="relative" {...props}>
-    <Box position="absolute" top="0" right="100%" width="66px" height="100%" borderRight="2px solid #fff" />
-    <SmallSection label="Join our growing team at k/f">
-      <List>
-        <>Campaign Marketer</>
-        <>Institutional Capital Lead</>
-        <>Product Manager</>
-        <>Senior Dev Ops Engineer</>
-        <>Senior Fullstack Engineer</>
-        <>Senior Protocol Engineer - Centrifuge Protocol</>
-      </List>
-    </SmallSection>
-  </Box>
-))`
-  ${Section} {
-    padding: 36px;
-
-    ${Heading} ${Text} {
-      font-weight: 600;
-      text-decoration: underline;
-    }
-  }
-
-  ${List} {
-    margin: 0;
-    padding: 0;
-
-    li {
-      margin: 20px 0;
-    }
-  }
-
-  ${Text} {
-    font-family: Questrial;
-    font-weight: 400;
-    font-size: 1.25rem;
-    line-height: 1.5;
-  }
-`

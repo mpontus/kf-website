@@ -4,6 +4,7 @@ import { baseTheme } from '@centrifuge/fabric/src/theme/tokens/baseTheme'
 import { modeDark } from '@centrifuge/fabric/src/theme/tokens/modeDark'
 import { useContext } from 'react'
 import { ThemeContext } from 'styled-components'
+import { TextDecoration } from 'styled-icons/zondicons'
 import { SpaceProps, TypographyProps } from 'styled-system'
 
 export interface Theme extends FabricTheme {
@@ -24,8 +25,9 @@ function breakpoints<A = [number, number, number, number]>(A: A): { M: number; S
 
 export const defaultTheme = {
   ...baseTheme,
-  breakpoints: breakpoints(['480px', '600px', '1140px', '1920px']),
+  breakpoints: breakpoints(['481px', '601px', '1141px', '1921px']),
   typography: {
+    ...baseTheme.typography,
     body1: {
       fontSize: ['16px', '16px', '20px'],
       fontWeight: 400,
@@ -43,20 +45,34 @@ export const defaultTheme = {
     iconSmall: 16,
     iconMedium: 23,
   },
-  fonts: { standard: 'Manrope,sans-serif' },
+  fonts: {
+    standard: '',
+    alt: '',
+  },
   fontSizes: ['219px'],
   colors: {
-    brand: '#4FF527',
     ...modeDark.colors,
+    brand: '#4FF527',
+    borderPrimary: 'white',
   },
   shadows: {
     ...baseTheme.shadows,
   },
   section: {
-    small: {},
+    small: {
+      heading: {
+        variant: 'heading4',
+        textDecoration: 'underline',
+      },
+      box: {},
+    },
     xlarge: {
-      heading: { variant: 'heading1' },
-      box: { marginBottom: ['20rem'] },
+      heading: {
+        variant: 'heading1',
+        paddingBottom: '8px',
+        borderBottom: '2px solid white',
+      },
+      box: {},
     },
   },
   sidebar: {

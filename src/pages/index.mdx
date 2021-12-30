@@ -1,41 +1,53 @@
 import { Container, Heading, Paragraph, Link, Image, Box } from '../components/common'
 import {
   Layout,
+  Header,
   Main,
+  Footer,
   Sidebar,
-  HiringSidebar,
   SingleColumnLayout,
   SidebarLayout,
   withSidebar,
   ExtraLargeSection,
+  Section,
 } from '../components/layout'
+import { HiringSidebar } from '../components/HiringSidebar'
 import centrifuge from '../images/centrifuge-logo.svg'
 import kfactory from '../images/kfactory-logo.svg'
 import styled from 'styled-components'
 
 export default styled(withSidebar(<HiringSidebar />))`
   ${Main} {
-    padding: 40px 32px;
+    display: grid;
+    grid-auto-flow: row;
+    grid-gap: 80px;
+  }
+  ${Header}, ${Main} {
+    padding: 0 32px;
+  }
+  ${Section} ${Heading} {
+    // margin-right: -32px;
+  }
+  ${Sidebar} {
+    // margin: 0 -32px;
   }
 `
 
-<Image src={kfactory} height={87} />
-
 <!-- Hero -->
 
-<Box height="600px" />
+<Box height={[500, 500, 600]} />
 
 <!-- Section -->
 
-<ExtraLargeSection label="About">
+<Section variant="xlarge" label="About">
 
 k/factory was founded by the original contributors to Centrifuge. It provides software development and other services for Centrifuge chain as well as other parts of the Centrifuge ecosystem.
 
-</ExtraLargeSection>
+</Section>
 
 <!-- Section -->
 
-<ExtraLargeSection label="Work with us">
+<Section variant="xlarge" label="Work with us" marginBottom="40px">
 
 k/factory is self-managed and remote friendly. You can read more about how we run things in our handbook.
 
@@ -45,14 +57,4 @@ We offer competitive compensation based on your skills, not your gender or backg
 
 Learn more about who we are and why you should join here.
 
-</ExtraLargeSection>
-
-<!-- Footer -->
-
-<Footer align="center" fontFamily="Questrial" margin="2rem">
-
-k/factory is a contributor to
-
-<Image src={centrifuge} width={184} height={55} />
-
-</Footer>
+</Section>

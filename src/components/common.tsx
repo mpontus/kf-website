@@ -19,35 +19,27 @@ export type ParagraphProps = BoxProps & {
 export const Paragraph = styled((props: ParagraphProps) => {
   const { Typography = Text, variant = 'body1', children, ...rest } = props
   return (
-    <Box {...rest}>
+    <Box margin="16px 0" {...rest}>
       <Typography variant={variant}>{children}</Typography>
     </Box>
   )
 })``
 
-export const p = styled(Paragraph).attrs({ variant: 'body1' })`
-  max-width: 736px;
-  margin: 16px 0;
-`
+export const p = styled(Paragraph).attrs({ variant: 'body1' })``
 
 // Headings
 
 export type HeadingProps = BoxProps & {
   variant?: 'heading1' | 'heading2' | 'heading3' | 'heading4' | 'heading5' | 'heading6'
-  Typography?: React.ComponentType<TextProps>
 }
 export const Heading = styled((props: HeadingProps) => {
-  const { Typography = Text, as, variant = 'headng3', children, ...rest } = props
+  const { as, variant = 'headng3', children, ...rest } = props
   return (
-    <Box {...rest}>
-      <Typography variant={variant}>{children}</Typography>
+    <Box margin="0" {...props}>
+      <Text variant={variant}>{children}</Text>
     </Box>
   )
-})`
-  font-weight: 600;
-  line-height: 1;
-  margin: 0;
-`
+})``
 
 export const h1 = styled(Heading.withComponent('h1')).attrs({ variant: 'heading1' })``
 export const h2 = styled(Heading.withComponent('h2')).attrs({ variant: 'heading2' })``
@@ -58,29 +50,25 @@ export const h6 = styled(Heading.withComponent('h6')).attrs({ variant: 'heading6
 
 // Links
 
-export interface LinkProps extends AnchorHTMLAttributes<any> {}
+export type LinkProps = TextProps & AnchorHTMLAttributes<any>
 export const Link = (props: LinkProps) => <Text as="a" {...props} />
 export const a = Link
 
 // Images
 
-export interface ImageProps extends ImgHTMLAttributes<any> {}
+export type ImageProps = BoxProps & ImgHTMLAttributes<any>
 export const Image = (props: ImageProps) => <Box as="img" {...props} />
 export const img = Image
 
 // Lists
 
-export type ListProps = BoxProps & {
-  Item?: React.ComponentType<BoxProps>
-}
-
-export const List = styled((props: ListProps) => {
-  const { Item: Container = Paragraph, children, ...rest } = props
+export const List = styled((props: BoxProps) => {
+  const { children, ...rest } = props
   const childrenArray = React.Children.toArray(children)
   return (
-    <Box as="ul" {...rest}>
+    <Box as="ul" margin={0} {...rest}>
       {childrenArray.map((child) => (
-        <Container forwardAs="li" children={child} {...rest} />
+        <Box as="li" children={child} />
       ))}
     </Box>
   )

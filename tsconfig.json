@@ -10,7 +10,10 @@
     // "allowJs": true,
     "outDir": "./build" /* this won't be used by ts-loader */,
     /* other options... */
-    "paths": { "*": ["./packages/*", "./node_modules/*"] },
+    "paths": {
+      "@centrifuge/fabric": ["./packages/@centrifuge/fabric/*"],
+      "*": ["./packages/*", "./node_modules/*"]
+    },
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true
   },
