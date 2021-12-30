@@ -3,5 +3,9 @@ module.exports = {
     siteUrl: "https://www.yourdomain.tld",
     title: "kf-website",
   },
-  plugins: [],
+  siteMetadata: {},
+  flags: {
+    FAST_REFRESH: true,
+  },
+  plugins: ["gatsby-plugin-mdx", "gatsby-plugin-ts"],
 };
