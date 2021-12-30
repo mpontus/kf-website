@@ -7,6 +7,9 @@ module.exports = {
     author: 'kf-website',
   },
   siteMetadata: {},
+  flags: {
+    FAST_REFRESH: true,
+  },
   plugins: [
     'gatsby-plugin-mdx',
     'gatsby-plugin-ts',
