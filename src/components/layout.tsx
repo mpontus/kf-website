@@ -38,7 +38,8 @@ type LayoutProps = BoxProps & {
   Container?: React.ComponentType<ContainerProps>
 }
 
-export const Layout = styled(enhance(Flex))`
+export const Layout = styled(enhance(Container))`
+  display: flex;
   font-family: Manrope, sans-serif;
   flex-direction: column;
   justify-content: center;
@@ -95,7 +96,7 @@ export const SidebarLayout = styled((props: SidebarLayoutProps) => {
   return (
     <Flex as={Layout} flexDirection="column" {...props}>
       {header}
-      <Grid columns={[1, 1, 1, 2]} justifyContent="start">
+      <Grid columns={[1, 1, 1, 2]}>
         <Main>{children}</Main>
         {sidebar}
       </Grid>
