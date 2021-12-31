@@ -1,0 +1,43 @@
+import styled from 'styled-components'
+import DefaultLayout, { Main, Sidebar, withSidebar } from '../layout'
+import { Box, Section } from '../components'
+import { margin } from 'styled-system'
+
+export default styled(
+  withSidebar(
+    // Demo sidebar
+    <Sidebar
+      my={[2, 2, 2, 0]}
+      mr={[-3, -3, -3, 0]}
+      backgroundColor="#69c"
+      minWidth="340px"
+      minHeight={['420px', '446px', '446px']}
+    />
+  )
+)``
+
+<!-- Demo hero block -->
+
+<Box backgroundColor="#e9c" height={[400, 348, 440]} />
+
+<!-- Section -->
+
+<Section heading="About">
+
+k/factory was founded by the original contributors to Centrifuge. It provides software development and other services for Centrifuge chain as well as other parts of the Centrifuge ecosystem.
+
+</Section>
+
+<!-- Section -->
+
+<Section heading="Work with us" position="relative">
+
+k/factory is self-managed and remote friendly. You can read more about how we run things in our handbook.
+
+We have a big vision to change the rules of global trade: our DApp is live and gaining traction to lower the barriers of raising capital.
+
+We offer competitive compensation based on your skills, not your gender or background.
+
+Learn more about who we are and why you should join here.
+
+</Section>
