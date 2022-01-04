@@ -10,11 +10,11 @@ declare module 'styled-components' {
   }
 }
 
-const breakpoints = [`480px`, `600px`, `800px`, `1140px`, `1920px`]
+const breakpoints = [`480px`, `600px`, `1140px`, `1920px`]
 const typography = {
   ...baseTheme.typography,
   body1: {
-    fontSize: [`16px`, `16px`, `16px`, `20px`],
+    fontSize: [`16px`, `16px`, `16px`],
     fontWeight: 400,
     lineHeight: 1.5,
   },

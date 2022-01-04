@@ -13,7 +13,6 @@
     "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "lint": "eslint .",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -40,6 +39,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "gatsby-plugin-google-fonts": "^1.0.1",
     "gatsby-plugin-mdx": "^3.4.0",
+    "gatsby-plugin-styled-components": "^5.4.0",
     "gatsby-plugin-ts": "^3.1.0",
     "gatsby-plugin-tsconfig-paths": "^1.0.5",
     "husky": "^7.0.4",
