@@ -1,70 +1,50 @@
-import * as Rebass from 'rebass'
-import {
-  Box,
-  BoxProps,
-  Flex,
-  FlexProps,
-  Text,
-  TextProps,
-  Heading,
-  HeadingProps,
-  Link,
-  LinkProps,
-  Image,
-  ImageProps,
-} from 'rebass/styled-components'
-import React from 'react'
+import React, { AnchorHTMLAttributes, ImgHTMLAttributes } from 'react'
 import styled from 'styled-components'
-import * as StyledSystem from 'styled-system'
+import * as Fabric from '@centrifuge/fabric'
+import * as FabricFlex from '@centrifuge/fabric/dist/components/Flex'
 
-export interface GridProps extends Rebass.BoxProps, StyledSystem.GridProps {}
+// Box
 
-export const Grid = styled(`div`)<GridProps>`
-  ${StyledSystem.space}
-  ${StyledSystem.layout}
-  ${StyledSystem.typography}
-  ${StyledSystem.color}
-  ${StyledSystem.flexbox}
-  ${StyledSystem.grid}
-  display: grid;
-`
+export type BoxProps = Fabric.BoxProps
+export const Box = Fabric.Box
 
-// export interface TextProps extends Rebass.TextProps {}
+// Flex
 
-// export const Text = styled((props: TextProps) => <Text as="span" {...props} />)``
-// export const span = Text
-// export const span = Text
+export type FlexProps = FabricFlex.FlexProps
+export const Flex = FabricFlex.Flex
 
-// Block typography
+// Grid
 
-// export interface ParagraphProps extends BoxProps {
-//   variant?: ResponsiveValue<string>
-// }
-// export const Paragraph = styled((props: ParagraphProps) => {
-//   const { variant, children, ...rest } = props
-//   return (
-//     <Box as="p" {...rest}>
-//       <Text variant={variant}>{children}</Text>
-//     </Box>
-//   )
-// })``
+export type GridProps = Fabric.GridProps
+export const Grid = Fabric.Grid
 
-export const Paragraph = (props: BoxProps) => <Text as="p" variant="body" mb={[1, 2]} {...props} />
-export const p = Paragraph
+// Container
+
+export type ContainerProps = Fabric.ContainerProps
+export const Container = Fabric.Container
+
+// Text
+
+export type TextProps = Fabric.TextProps
+export const Text = Fabric.Text
+
+// Paragraph
+
+export type ParagraphProps = TextProps
+export function Paragraph(props: ParagraphProps) {
+  const { as = `p`, variant = `body1`, ...rest } = props
+  return <Text as={as} variant={variant} {...rest} />
+}
 
 // Headings
 
-// export interface HeadingProps extends BoxProps {
-//   variant?: ResponsiveValue<string>
-// }
-// export const Heading = styled((props: HeadingProps) => {
-//   const { variant, children, ...rest } = props
-//   return (
-//     <Box {...rest}>
-//       <Text variant={variant}>{children}</Text>
-//     </Box>
-//   )
-// })``
+export const p = Paragraph
+
+export type HeadingProps = TextProps
+export function Heading(props: HeadingProps) {
+  const { as = `h2`, variant = `heading2`, ...rest } = props
+  return <Text as={as} variant={variant} {...rest} />
+}
 export const h1 = (props: BoxProps) => <Heading as="h1" variant="heading1" {...props} />
 export const h2 = (props: BoxProps) => <Heading as="h2" variant="heading2" {...props} />
 export const h3 = (props: BoxProps) => <Heading as="h3" variant="heading3" {...props} />
@@ -74,10 +54,18 @@ export const h6 = (props: BoxProps) => <Heading as="h6" variant="heading6" {...p
 
 // Links
 
+export type LinkProps = TextProps & AnchorHTMLAttributes<'a'>
+export function Link(props: LinkProps) {
+  return <Text as="a" {...props} />
+}
 export const a = Link
 
 // Images
 
+export type ImageProps = TextProps & ImgHTMLAttributes<'img'>
+export function Image(props: ImageProps) {
+  return <Text as="img" {...props} />
+}
 export const img = Image
 
 // Lists
@@ -88,7 +76,7 @@ export const List = styled((props: BoxProps) => {
   return (
     <Box as="ul" margin={0} {...rest}>
       {childrenArray.map((child) => (
-        <Box as="li" children={child} />
+        <Text as="li" children={child} />
       ))}
     </Box>
   )
@@ -100,21 +88,21 @@ export const ul = List
 
 export const shortcodes = { h1, h2, h3, h4, h5, h6, a, p, img, ul }
 
-export { Box, BoxProps, Text, TextProps, Heading, HeadingProps, Link, LinkProps, Image, ImageProps, Flex, FlexProps }
-
 // Section
 
-export interface SectionProps extends BoxProps {
+export type SectionProps = BoxProps & {
   heading?: string
 }
 export const Section = styled((props: SectionProps) => {
   const { heading, children, ...rest } = props
   return (
     <Box as="section" {...rest}>
-      <Heading pb={[0, 2]} mr={-4}>
+      <Text as="h3" variant="heading1" mr={-4}>
         {heading}
-      </Heading>
+      </Text>
       {children}
     </Box>
   )
-})``
+})`
+  margin-bottom: 40px;
+`

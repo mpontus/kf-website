@@ -1,66 +1,57 @@
-import { Theme as BaseTheme } from 'styled-system'
+import { FabricTheme } from '@centrifuge/fabric'
+import { baseTheme } from '@centrifuge/fabric/dist/theme/tokens/baseTheme'
+import { modeDark } from '@centrifuge/fabric/dist/theme/tokens/modeDark'
+import { DefaultTheme } from 'styled-components'
 
 declare module 'styled-components' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  export interface DefaultTheme extends Theme {}
+  export interface DefaultTheme extends FabricTheme {
+    fonts: { [K: string]: string }
+  }
 }
 
-const makeTheme = <T extends BaseTheme>(theme: T): T => theme
+function annotate<A, R>(a: A, f: (a: A) => R): A & R {
+  return Object.assign(a, f(a))
+}
 
-export const theme = makeTheme({
-  breakpoints: [`481px`, `601px`, `1141px`, `1921px`],
-  colors: {
-    text: `#fff`,
-    background: `#000`,
-    primary: `#f00`,
-    secondary: `#0f0`,
+export const theme: DefaultTheme = {
+  ...baseTheme,
+  ...modeDark,
+  breakpoints: annotate([`480px`, `600px`, `1140px`, `1920px`], ([M, S, L, XL]) => ({ M, S, L, XL })),
+  typography: {
+    ...baseTheme.typography,
+    body1: {
+      fontSize: [`16px`, `16px`, `20px`],
+      fontWeight: 400,
+      lineHeight: 1.5,
+    },
+    heading1: {
+      fontSize: [`4rem`, `5.25rem`, `7.4rem`],
+      fontWeight: 600,
+      lineHeight: 1,
+    },
+    heading2: {
+      fontSize: [`4rem`, `5.25rem`, `7.4rem`],
+      fontWeight: 600,
+      lineHeight: 1,
+    },
+  },
+  sizes: {
+    ...baseTheme.sizes,
+    container: 1420,
   },
   fonts: {
-    body: `Manrope, sans-serif`,
-    heading: `inherit`,
-    secondary: `Questrial, sans-serif`,
+    ...baseTheme.fonts,
+    standard: `Manrope, sans-serif`,
   },
-  space: [0, 8, 16, 24, 40, 64],
-  sizes: {
-    container: 1440,
-    header: 132,
+  colors: {
+    ...modeDark.colors,
+    brand: `#eafc99`,
   },
-  fontWeights: {
-    body: 400,
-    heading: 600,
-    bold: 700,
-  },
-  lineHeights: {
-    body: 1.5,
-    heading: 1,
-  },
-  text: {
-    body1: {
-      marginBottom: [1],
-    },
-    heading: {
-      fontSize: [`4rem`, `5.25rem`, `7.4rem`],
-      fontFamily: `heading`,
-      fontWeight: `heading`,
-      lineHeight: `heading`,
-      borderBottom: `primary`,
-      marginBottom: [2],
-    },
-  },
-  borders: {
-    primary: `2px solid #fff`,
-  },
-  styles: {
-    root: {
-      margin: 0,
-      fontSize: [`16px`, `16px`, `20px`],
-      fontFamily: `body`,
-      fontWeight: `body`,
-      lineHeight: `body`,
-      color: `text`,
-      backgroundColor: `background`,
-    },
-  },
-})
+  space: annotate([0, 8, 16, 24, 40, 64], (space) => ({
+    gutterMobile: space[1],
+    gutterTablet: space[2],
+    gutterDesktop: space[3],
+  })),
+}
 
 export type Theme = typeof theme

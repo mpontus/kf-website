@@ -1,8 +1,8 @@
+import { GlobalStyle } from '@centrifuge/fabric'
 import { MDXProvider } from '@mdx-js/react'
 import React from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import { Box, BoxProps, Flex, Grid, Image, Paragraph, shortcodes } from './components'
-import { GlobalStyles } from './styles'
+import { Box, BoxProps, Flex, Image, Paragraph, shortcodes } from './components'
 import { theme } from './theme'
 
 // Providers
@@ -19,7 +19,7 @@ const withThemeProvider: Decorator = (Component) => (props) =>
   (
     <ThemeProvider theme={theme}>
       <>
-        <GlobalStyles variant="root" />
+        <GlobalStyle />
         <Component {...props} />
       </>
     </ThemeProvider>
@@ -53,7 +53,7 @@ export const Footer = styled((props: BoxProps) => <Box as="footer" pt={3} pb={4}
 `
 
 export const Main = styled((props: BoxProps) => (
-  <Grid as="main" gridGap={[`80px`, `72px`]} px={2} py={[4, 5]} {...props} />
+  <Box as="main" display="grid" gridGap={[`80px`, `72px`]} px={2} py={[4, 5]} {...props} />
 ))`
   grid-area: main;
 `
@@ -76,9 +76,8 @@ const DefaultHeader: React.FC = () => (
 
 const DefaultFooter: React.FC = () => (
   <Footer textAlign="center">
-    <Paragraph variant="accent" marginBottom={3}>
-      k/factory is a contributor to
-    </Paragraph>
+    <Paragraph marginBottom={3}>k/factory is a contributor to</Paragraph>
+
     <Image
       src={
         // eslint-disable-next-line @typescript-eslint/no-var-requires

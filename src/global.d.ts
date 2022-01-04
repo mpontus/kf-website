@@ -5,8 +5,3 @@ declare module '*.svg' {
 declare module '@styled-system/css' {
   export default any
 }
-declare module '@rebass/preset' {
-  import { RequiredTheme } from 'styled-system'
-  declare const preset: RequiredTheme
-  export default preset
-}
