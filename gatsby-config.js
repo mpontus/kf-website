@@ -3,10 +3,6 @@ module.exports = {
     siteUrl: `https://www.yourdomain.tld`,
     title: `kf-website`,
   },
-  siteMetadata: {},
-  flags: {
-    FAST_REFRESH: true,
-  },
   plugins: [
     `gatsby-plugin-mdx`,
     `gatsby-plugin-ts`,
@@ -17,5 +13,6 @@ module.exports = {
         display: `swap`,
       },
     },
+    'gatsby-plugin-styled-components',
   ],
 }
