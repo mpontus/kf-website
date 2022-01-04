@@ -1,12 +1,24 @@
-import React, { AnchorHTMLAttributes, ImgHTMLAttributes } from 'react'
-import styled from 'styled-components'
 import * as Fabric from '@centrifuge/fabric'
 import * as FabricFlex from '@centrifuge/fabric/dist/components/Flex'
+import React, { AnchorHTMLAttributes, ImgHTMLAttributes } from 'react'
+import styled, { DefaultTheme } from 'styled-components'
+import * as StyledSystem from 'styled-system'
+
+export function forwardAs<T, P>(
+  Component: React.ComponentType<P & { forwardAs?: T }>
+): React.ComponentType<P & { as?: T }> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return ({ as, ...rest }: any) => <Component forwardAs={as as any} {...rest} />
+}
 
 // Box
 
-export type BoxProps = Fabric.BoxProps
-export const Box = Fabric.Box
+export type BoxProps = Fabric.BoxProps & StyledSystem.BorderProps & StyledSystem.MarginProps & StyledSystem.PaddingProps
+export const Box = forwardAs(styled(Fabric.Box)`
+  ${StyledSystem.border}
+  ${StyledSystem.margin}
+  ${StyledSystem.padding}
+`)
 
 // Flex
 
@@ -30,20 +42,31 @@ export const Text = Fabric.Text
 
 // Paragraph
 
-export type ParagraphProps = TextProps
+export type ParagraphProps = BoxProps & {
+  variant?: keyof DefaultTheme['typography']
+}
 export function Paragraph(props: ParagraphProps) {
   const { as = `p`, variant = `body1`, ...rest } = props
-  return <Text as={as} variant={variant} {...rest} />
+  return (
+    <Box as={as} marginBottom={2} {...rest}>
+      <Text variant={variant} {...rest} />
+    </Box>
+  )
 }
+export const p = Paragraph
 
 // Headings
 
-export const p = Paragraph
-
-export type HeadingProps = TextProps
+export type HeadingProps = BoxProps & {
+  variant?: keyof DefaultTheme['typography']
+}
 export function Heading(props: HeadingProps) {
   const { as = `h2`, variant = `heading2`, ...rest } = props
-  return <Text as={as} variant={variant} {...rest} />
+  return (
+    <Box as={as} marginBottom={2} {...props}>
+      <Text variant={variant} {...rest} />
+    </Box>
+  )
 }
 export const h1 = (props: BoxProps) => <Heading as="h1" variant="heading1" {...props} />
 export const h2 = (props: BoxProps) => <Heading as="h2" variant="heading2" {...props} />
@@ -97,12 +120,10 @@ export const Section = styled((props: SectionProps) => {
   const { heading, children, ...rest } = props
   return (
     <Box as="section" {...rest}>
-      <Text as="h3" variant="heading1" mr={-4}>
+      <Heading variant="heading1" borderBottom="2px solid white" pb={1} mb={2} mr={-4}>
         {heading}
-      </Text>
+      </Heading>
       {children}
     </Box>
   )
-})`
-  margin-bottom: 40px;
-`
+})``

@@ -2,7 +2,7 @@ import { GlobalStyle } from '@centrifuge/fabric'
 import { MDXProvider } from '@mdx-js/react'
 import React from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import { Box, BoxProps, Flex, Image, Paragraph, shortcodes } from './components'
+import { Box, BoxProps, Flex, forwardAs, Grid, Image, Paragraph, shortcodes } from './components'
 import { theme } from './theme'
 
 // Providers
@@ -31,35 +31,30 @@ function enhance<P>(component: React.ComponentType<P>) {
 
 // Layout
 
-export const Container = styled((props: BoxProps) => (
-  <Box maxWidth="container" mx="auto" py={2} px={[2, 2, 3]} {...props} />
-))``
-
-export const Layout = styled((props: BoxProps) => <Container display={[`flex`, `flex`, `flex`, `grid`]} {...props} />)`
-  flex-direction: column;
-  grid: \"head side\"
-        \"main side\" 
-        \"foot foot\";
-`
-
-export const Header = styled((props: BoxProps) => (
-  <Flex as="header" alignItems="center" minHeight="header" px={2} {...props} />
-))`
+export const Header = styled((props: BoxProps) => <Box as="header" minHeight="header" my="4" {...props} />)`
   grid-area: head;
 `
 
-export const Footer = styled((props: BoxProps) => <Box as="footer" pt={3} pb={4} {...props} />)`
+export const Footer = styled((props: BoxProps) => <Box as="footer" {...props} />)`
   grid-area: foot;
 `
 
-export const Main = styled((props: BoxProps) => (
-  <Box as="main" display="grid" gridGap={[`80px`, `72px`]} px={2} py={[4, 5]} {...props} />
-))`
+export const Main = styled((props: BoxProps) => <Grid as="main" columns={1} gridGap={[`80px`, `72px`]} {...props} />)`
   grid-area: main;
 `
 
 export const Sidebar = styled((props: BoxProps) => <Box as="aside" {...props} />)`
   grid-area: side;
+`
+
+export const Layout = styled((props: BoxProps) => <Box maxWidth="container" mx="auto" px="4" {...props} />)`
+  display: flex;
+  flex-direction: column;
+
+  ${({ theme }) => `${theme.mediaQueries.large} {
+    display: grid;
+    grid: \"head side\" \"main side\" \"foot foot\";
+  }`}
 `
 
 const DefaultHeader: React.FC = () => (
