@@ -35,11 +35,11 @@ export const Header = styled((props: BoxProps) => <Box as="header" minHeight="he
   grid-area: head;
 `
 
-export const Footer = styled((props: BoxProps) => <Box as="footer" {...props} />)`
+export const Footer = styled((props: BoxProps) => <Box as="footer" my="4" {...props} />)`
   grid-area: foot;
 `
 
-export const Main = styled((props: BoxProps) => <Grid as="main" columns={1} gridGap={[`80px`, `72px`]} {...props} />)`
+export const Main = styled((props: BoxProps) => <Grid as="main" columns={1} my="4" {...props} />)`
   grid-area: main;
 `
 
@@ -72,7 +72,6 @@ const DefaultHeader: React.FC = () => (
 const DefaultFooter: React.FC = () => (
   <Footer textAlign="center">
     <Paragraph marginBottom={3}>k/factory is a contributor to</Paragraph>
-
     <Image
       src={
         // eslint-disable-next-line @typescript-eslint/no-var-requires
