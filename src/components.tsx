@@ -2,7 +2,6 @@ import * as Fabric from '@centrifuge/fabric'
 import * as FabricFlex from '@centrifuge/fabric/dist/components/Flex'
 import React, { AnchorHTMLAttributes, ImgHTMLAttributes } from 'react'
 import styled, { DefaultTheme } from 'styled-components'
-import * as StyledSystem from 'styled-system'
 
 export function forwardAs<T, P>(
   Component: React.ComponentType<P & { forwardAs?: T }>
@@ -11,14 +10,26 @@ export function forwardAs<T, P>(
   return ({ as, ...rest }: any) => <Component forwardAs={as as any} {...rest} />
 }
 
+// Text
+
+export type TextProps = Fabric.TextProps & {
+  children?: React.ReactNode
+}
+export const Text = ({ as = 'span', ...rest }: TextProps) => <Fabric.Text as={as} {...rest} />
+
 // Box
 
-export type BoxProps = Fabric.BoxProps & StyledSystem.BorderProps & StyledSystem.MarginProps & StyledSystem.PaddingProps
-export const Box = forwardAs(styled(Fabric.Box)`
-  ${StyledSystem.border}
-  ${StyledSystem.margin}
-  ${StyledSystem.padding}
-`)
+export interface BoxProps extends Fabric.StyledBoxProps {
+  as?: string | React.ComponentType
+  children?: React.ReactNode
+}
+export const Box = Fabric.Box
+// export const Box = styled((props) => <Fabric.Box {...props} />)<BoxProps>()
+
+// Container
+
+export type ContainerProps = Fabric.ContainerProps
+export const Container = Fabric.Container
 
 // Flex
 
@@ -30,25 +41,15 @@ export const Flex = FabricFlex.Flex
 export type GridProps = Fabric.GridProps
 export const Grid = Fabric.Grid
 
-// Container
-
-export type ContainerProps = Fabric.ContainerProps
-export const Container = Fabric.Container
-
-// Text
-
-export type TextProps = Fabric.TextProps
-export const Text = Fabric.Text
-
 // Paragraph
 
 export type ParagraphProps = BoxProps & {
   variant?: keyof DefaultTheme['typography']
 }
 export function Paragraph(props: ParagraphProps) {
-  const { as = `p`, variant = `body1`, ...rest } = props
+  const { variant = `body1`, ...rest } = props
   return (
-    <Box as={as} marginBottom={2} {...rest}>
+    <Box as="p" marginBottom={2} {...rest}>
       <Text variant={variant} {...rest} />
     </Box>
   )
@@ -57,8 +58,10 @@ export const p = Paragraph
 
 // Headings
 
-export type HeadingProps = BoxProps & {
+export interface HeadingProps extends BoxProps {
+  as?: string | React.ComponentType
   variant?: keyof DefaultTheme['typography']
+  children?: React.ReactNode
 }
 export function Heading(props: HeadingProps) {
   const { as = `h2`, variant = `heading2`, ...rest } = props
@@ -93,17 +96,17 @@ export const img = Image
 
 // Lists
 
-export const List = styled((props: BoxProps) => {
-  const { children, ...rest } = props
-  const childrenArray = React.Children.toArray(children)
-  return (
-    <Box as="ul" margin={0} {...rest}>
-      {childrenArray.map((child) => (
-        <Text as="li" children={child} />
-      ))}
-    </Box>
-  )
-})``
+export type ListProps = BoxProps & {
+  children: React.ReactNode[]
+}
+
+export const List = styled(({ children, ...rest }: ListProps) => (
+  <Box as="ul" margin={0} {...rest}>
+    {children.map((child) => (
+      <Text as="li" children={child} />
+    ))}
+  </Box>
+))``
 
 export const ul = List
 
@@ -115,11 +118,12 @@ export const shortcodes = { h1, h2, h3, h4, h5, h6, a, p, img, ul }
 
 export type SectionProps = BoxProps & {
   heading?: string
+  children?: React.ReactNode
 }
 export const Section = styled((props: SectionProps) => {
   const { heading, children, ...rest } = props
   return (
-    <Box as="section" {...rest}>
+    <Box as="section" mb={5} {...rest}>
       <Heading variant="heading1" borderBottom="2px solid white" pb={1} mb={2} mr={-4}>
         {heading}
       </Heading>

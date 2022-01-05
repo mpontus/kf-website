@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import DefaultLayout, { Main, Sidebar, withSidebar } from '../layout'
 import { Box, Section } from '../components'
 import { margin } from 'styled-system'
+import { SpinningText, Scene } from '../components/HeroSpinningText'
 
 export default styled(
   withSidebar(
@@ -16,9 +17,16 @@ export default styled(
   )
 )``
 
-<!-- Demo hero block -->
+<!-- Hero-->
 
-<Box backgroundColor="#e9c" height={[400, 348, 440]} />
+<Scene perspective="800px" height="500px">
+  <SpinningText
+    fontSize={['1.4rem', '1.8rem', '2.4rem']}
+    rotateX={-15}
+    rotateZ={-15}
+    text="    OUR MISSION IS TO BUILD & SUPPORT A FINANCIAL ECOSYSTEM ON THE CENTRIFUGE PROTOCOL"
+  />
+</Scene>
 
 <!-- Section -->
 

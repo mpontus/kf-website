@@ -2,7 +2,7 @@ import { GlobalStyle } from '@centrifuge/fabric'
 import { MDXProvider } from '@mdx-js/react'
 import React from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import { Box, BoxProps, Flex, forwardAs, Grid, Image, Paragraph, shortcodes } from './components'
+import { Box, BoxProps, Grid, Image, Paragraph, shortcodes } from './components'
 import { theme } from './theme'
 
 // Providers
@@ -39,7 +39,7 @@ export const Footer = styled((props: BoxProps) => <Box as="footer" {...props} />
   grid-area: foot;
 `
 
-export const Main = styled((props: BoxProps) => <Grid as="main" columns={1} gridGap={[`80px`, `72px`]} {...props} />)`
+export const Main = styled((props: BoxProps) => <Grid as="main" columns={1} {...props} />)`
   grid-area: main;
 `
 
