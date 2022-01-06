@@ -80,7 +80,7 @@ export const SidebarHiring = styled((props: FlexProps) => (
     borderColor="borderPrimary"
     position="sticky"
     top="0"
-    overflow="visible"
+    overflowY="hidden"
     {...props}
   >
     <Box position="relative" flex="1">
