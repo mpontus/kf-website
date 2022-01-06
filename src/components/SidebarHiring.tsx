@@ -1,8 +1,20 @@
-import { useWindowHeight } from '@react-hook/window-size'
-import React, { useEffect, useState } from 'react'
-import { useMediaQuery } from 'react-responsive'
-import styled, { useTheme } from 'styled-components'
-import { Box, BoxProps, Flex, Grid, Heading, Item, Link, List, SectionProps, Text, TextProps } from '../components'
+import React from 'react'
+import styled from 'styled-components'
+import {
+  Box,
+  BoxProps,
+  Flex,
+  FlexProps,
+  Grid,
+  Heading,
+  Item,
+  Link,
+  LinkProps,
+  List,
+  SectionProps,
+  Text,
+  TextProps,
+} from '../components'
 import { Sidebar } from '../layout'
 
 const UnderlineText = (props: TextProps) => <Text textDecoration="underline" {...props} />
@@ -39,68 +51,42 @@ const Gradient = styled((props: BoxProps) => (
       <Box height="62px" background={color} />
     ))}
   </Box>
-))`
-  display: grid;
-  grid-auto-flow: row;
-  justify-content: stretch;
-`
+))``
 
 export interface HiringEmail extends BoxProps {
   email: string
 }
 
+const HiringEmailLink = (props: LinkProps) => <Link whiteSpace="nowrap" fontSize="32px" fontWeight="600" {...props} />
+
 const HiringEmail = styled(({ email, ...rest }) => (
-  <Box {...rest}>
-    <Link href={`mailto:${email}`} whiteSpace="nowrap" fontSize="32px" fontWeight="600" children={email} />
-  </Box>
+  <Box as={HiringEmailLink} href={`mailto:${email}`} children={email} {...rest} />
 ))`
-  display: block;
-  position: absolute;
-  transform-origin: top left;
-  transform: rotateZ(-90deg) translateX(-100%) translateY(-100%);
+  transform-origin: top right;
+  transform: rotate(-90deg) translateY(-100%);
 `
 
-export const SidebarHiring = styled((props) => {
-  const [hasMounted, setHasMounted] = useState(false)
-  useEffect(() => setHasMounted(true), [])
-
-  const height = useWindowHeight()
-  const { L: minWidth } = useTheme().breakpoints
-  const isWide = useMediaQuery({ minWidth })
-
-  if (!hasMounted) {
-    return null
-  }
-
-  if (!isWide) {
-    return (
-      <Flex as={Sidebar} ml={4} borderWidth="2px" borderStyle="solid none" borderColor="borderPrimary" {...props}>
-        <Careers flex="1" py={2} minWidth="320px" />
-        <Box position="relative" py={2}>
-          <HiringEmail email="work@k-f.co" />
-        </Box>
-        <Gradient position="relative" flex="1" maxWidth="336px" height="420px"></Gradient>
-      </Flex>
-    )
-  }
-
-  return (
-    <Flex
-      as={Sidebar}
-      flexDirection="column"
-      borderWidth="2px"
-      borderLeftStyle="solid"
-      borderColor="borderPrimary"
-      position="sticky"
-      top="0"
-      height={height}
-      overflow="visible"
-    >
-      <HiringEmail email="work@k-f.co" px={4} />
-      <Careers flex="1" p={3} />
-      <Gradient />
-    </Flex>
-  )
-})<BoxProps>``
+export const SidebarHiring = styled((props: FlexProps) => (
+  <Flex
+    as={Sidebar}
+    flexDirection={['row', 'row', 'row', 'column']}
+    borderWidth={['2px 0', '2px 0', '2px 0', '0 0 0 2px']}
+    maxHeight={['auto', 'auto', 'auto', '100vh']}
+    marginLeft={[4, 4, 4, 0]}
+    borderStyle="solid"
+    borderColor="borderPrimary"
+    position="sticky"
+    top="0"
+    overflow="visible"
+    minWidth="336px"
+    {...props}
+  >
+    <Box position="relative" flex="1">
+      <Careers flex="1" minWidth="350px" py={[2, 2, 2, 3]} px={[0, 0, 0, 3]} />
+      <HiringEmail position="absolute" top={[2, 2, 2, 4]} right={[0, 0, 0, '100%']} email="work@k-f.co" />
+    </Box>
+    <Gradient flex={['1', '1', '1', '0']} maxWidth={['336px', '336px', '336px', '100%']} />
+  </Flex>
+))<BoxProps>``
 
 export default SidebarHiring

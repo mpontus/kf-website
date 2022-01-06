@@ -68,6 +68,7 @@ const fonts = {
 const colors = {
   ...modeDark.colors,
   brand: `#eafc99`,
+  borderPrimary: modeDark.colors.textPrimary,
 }
 const mediaQueries = {
   small: `@media screen and (min-width: ${breakpoints[0]})`,
@@ -97,3 +98,5 @@ export const theme: DefaultTheme = {
 }
 
 export type Theme = typeof theme
+
+export default theme
