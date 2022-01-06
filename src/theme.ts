@@ -18,8 +18,23 @@ const typography = {
     fontWeight: 400,
     lineHeight: 1.5,
   },
+  body2: {
+    fontSize: [`14px`, `14px`, `16px`],
+    fontWeight: 400,
+    lineHeight: 1.5,
+  },
   heading1: {
     fontSize: [`4rem`, `5.25rem`, `7.125rem`],
+    fontWeight: 600,
+    lineHeight: 1,
+  },
+  heading2: {
+    fontSize: '3rem',
+    fontWeight: 600,
+    lineHeight: 1,
+  },
+  heading3: {
+    fontSize: '2rem',
     fontWeight: 600,
     lineHeight: 1,
   },
@@ -29,6 +44,16 @@ const typography = {
     lineHeight: 1,
     // stop to figure out why it doesn't work
     textDecoration: 'underline',
+  },
+  heading5: {
+    fontSize: '1rem',
+    fontWeight: 600,
+    lineHeight: 1,
+  },
+  heading6: {
+    fontSize: '1rem',
+    fontWeight: 600,
+    lineHeight: 1,
   },
 }
 const sizes = {
