@@ -1,5 +1,5 @@
 import { useWindowHeight } from '@react-hook/window-size'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import styled, { useTheme } from 'styled-components'
 import { Box, BoxProps, Flex, Grid, Heading, Item, Link, List, SectionProps, Text, TextProps } from '../components'
@@ -61,36 +61,44 @@ const HiringEmail = styled(({ email, ...rest }) => (
 `
 
 export const SidebarHiring = styled((props) => {
+  const [hasMounted, setHasMounted] = useState(false)
+  useEffect(() => setHasMounted(true), [])
+
   const height = useWindowHeight()
   const { L: minWidth } = useTheme().breakpoints
+  const isWide = useMediaQuery({ minWidth })
 
-  if (useMediaQuery({ minWidth })) {
+  if (!hasMounted) {
+    return null
+  }
+
+  if (!isWide) {
     return (
-      <Flex
-        as={Sidebar}
-        flexDirection="column"
-        borderWidth="2px"
-        borderLeftStyle="solid"
-        borderColor="textPrimary"
-        position="sticky"
-        top="0"
-        height={height}
-        overflow="visible"
-      >
-        <HiringEmail email="work@k-f.co" px={4} />
-        <Careers flex="1" p={3} />
-        <Gradient />
+      <Flex as={Sidebar} ml={4} borderWidth="2px" borderStyle="solid none" borderColor="borderPrimary" {...props}>
+        <Careers flex="1" py={2} minWidth="320px" />
+        <Box position="relative" py={2}>
+          <HiringEmail email="work@k-f.co" />
+        </Box>
+        <Gradient position="relative" flex="1" maxWidth="336px" height="420px"></Gradient>
       </Flex>
     )
   }
 
   return (
-    <Flex as={Sidebar} ml={4} borderWidth="2px" borderStyle="solid none" borderColor="textPrimary" {...props}>
-      <Careers flex="1" py={2} minWidth="320px" />
-      <Box position="relative" py={2}>
-        <HiringEmail email="work@k-f.co" />
-      </Box>
-      <Gradient position="relative" flex="1" maxWidth="336px" height="420px"></Gradient>
+    <Flex
+      as={Sidebar}
+      flexDirection="column"
+      borderWidth="2px"
+      borderLeftStyle="solid"
+      borderColor="borderPrimary"
+      position="sticky"
+      top="0"
+      height={height}
+      overflow="visible"
+    >
+      <HiringEmail email="work@k-f.co" px={4} />
+      <Careers flex="1" p={3} />
+      <Gradient />
     </Flex>
   )
 })<BoxProps>``
