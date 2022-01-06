@@ -58,7 +58,8 @@ const typography = {
 }
 const sizes = {
   ...baseTheme.sizes,
-  container: 1420,
+  container: 1680,
+  section: 920,
 }
 const space = [0, 8, 16, 24, 40, 64]
 const fonts = {
