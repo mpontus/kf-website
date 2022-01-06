@@ -85,7 +85,7 @@ export const SidebarHiring = styled((props: FlexProps) => (
     {...props}
   >
     <Box position="relative" flex="1">
-      <Careers maxWidth="260px" flex="1" py={[2, 2, 2, 3]} px={[0, 0, 0, 3]} />
+      <Careers width="260px" flex="1" py={[2, 2, 2, 3]} px={[0, 0, 0, 3]} />
       <HiringEmail position="absolute" top={[2, 2, 2, 4]} right={[0, 0, 0, '100%']} email="work@k-f.co" />
     </Box>
     <Gradient flex={['1', '1', '1', '0']} maxWidth={['336px', '336px', '336px', '100%']} />
