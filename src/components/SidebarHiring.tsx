@@ -48,7 +48,7 @@ const Careers = styled((props: SectionProps) => {
 const Gradient = styled((props: BoxProps) => (
   <Box {...props}>
     {['#FCD1E3', '#FCB3D2', '#FC86B7', '#FC539A', '#FC6CA9', '#FC3A8B', '#FC1475'].map((color) => (
-      <Box height="62px" background={color} />
+      <Box key={color} height="62px" background={color} />
     ))}
   </Box>
 ))``
@@ -70,19 +70,22 @@ export const SidebarHiring = styled((props: FlexProps) => (
   <Flex
     as={Sidebar}
     flexDirection={['row', 'row', 'row', 'column']}
-    borderWidth={['2px 0', '2px 0', '2px 0', '0 0 0 2px']}
+    ml={[4, 4, 4, 0]}
+    my={[2, 2, 2, 0]}
+    mr={[-3, -3, -3, 0]}
+    minHeight="446px"
     maxHeight={['auto', 'auto', 'auto', '100vh']}
-    marginLeft={[4, 4, 4, 0]}
+    maxWidth={['auto', 'auto', 'auto', '340px']}
+    borderWidth={['2px 0', '2px 0', '2px 0', '0 0 0 2px']}
     borderStyle="solid"
     borderColor="borderPrimary"
     position="sticky"
     top="0"
     overflow="visible"
-    minWidth="336px"
     {...props}
   >
     <Box position="relative" flex="1">
-      <Careers flex="1" minWidth="350px" py={[2, 2, 2, 3]} px={[0, 0, 0, 3]} />
+      <Careers maxWidth="260px" flex="1" py={[2, 2, 2, 3]} px={[0, 0, 0, 3]} />
       <HiringEmail position="absolute" top={[2, 2, 2, 4]} right={[0, 0, 0, '100%']} email="work@k-f.co" />
     </Box>
     <Gradient flex={['1', '1', '1', '0']} maxWidth={['336px', '336px', '336px', '100%']} />
