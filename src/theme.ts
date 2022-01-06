@@ -26,7 +26,7 @@ const typography = {
   heading1: {
     fontSize: [`4rem`, `5.25rem`, `7.125rem`],
     fontWeight: 600,
-    lineHeight: 1,
+    lineHeight: [0.6, 1],
   },
   heading2: {
     fontSize: '3rem',
