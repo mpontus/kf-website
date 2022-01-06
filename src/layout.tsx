@@ -31,15 +31,15 @@ function enhance<P>(component: React.ComponentType<P>) {
 
 // Layout
 
-export const Header = styled((props: BoxProps) => <Box as="header" minHeight="header" my="4" {...props} />)`
+export const Header = styled((props: BoxProps) => <Box as="header" minHeight="header" p="4" {...props} />)`
   grid-area: head;
 `
 
-export const Footer = styled((props: BoxProps) => <Box as="footer" {...props} />)`
+export const Footer = styled((props: BoxProps) => <Box as="footer" p={4} {...props} />)`
   grid-area: foot;
 `
 
-export const Main = styled((props: BoxProps) => <Grid as="main" columns={1} {...props} />)`
+export const Main = styled((props: BoxProps) => <Grid as="main" px={4} columns={1} {...props} />)`
   grid-area: main;
 `
 
@@ -47,13 +47,13 @@ export const Sidebar = styled((props: BoxProps) => <Box as="aside" {...props} />
   grid-area: side;
 `
 
-export const Layout = styled((props: BoxProps) => <Box maxWidth="container" mx="auto" px="4" {...props} />)`
+export const Layout = styled((props: BoxProps) => <Box maxWidth="container" mx="auto" {...props} />)`
   display: flex;
   flex-direction: column;
 
   ${({ theme }) => `${theme.mediaQueries.large} {
     display: grid;
-    grid: \"head side\" \"main side\" \"foot foot\";
+    grid: \"head side\" \"main side\" \"foot side\";
   }`}
 `
 

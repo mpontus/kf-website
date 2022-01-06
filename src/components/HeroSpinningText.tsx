@@ -26,7 +26,7 @@ const Carousel = styled((props: CarouselProps) => {
   return (
     <Box {...rest}>
       {children.map((child, i) => (
-        <Slide distance={distance} angle={(i / children.length) * 360}>
+        <Slide key={`${i}`} distance={distance} angle={(i / children.length) * 360}>
           {child}
         </Slide>
       ))}

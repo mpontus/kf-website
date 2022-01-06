@@ -23,6 +23,13 @@ const typography = {
     fontWeight: 600,
     lineHeight: 1,
   },
+  heading4: {
+    fontSize: '1rem',
+    fontWeight: 600,
+    lineHeight: 1,
+    // stop to figure out why it doesn't work
+    textDecoration: 'underline',
+  },
 }
 const sizes = {
   ...baseTheme.sizes,

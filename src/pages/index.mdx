@@ -1,19 +1,14 @@
 import styled from 'styled-components'
 import DefaultLayout, { Main, Sidebar, withSidebar } from '../layout'
-import { Box, Section } from '../components'
+import { Box, Section, Text } from '../components'
 import { margin } from 'styled-system'
+import { SidebarHiring } from '../components/SidebarHiring'
 import { SpinningText, Scene } from '../components/HeroSpinningText'
 
 export default styled(
   withSidebar(
     // Demo sidebar
-    <Sidebar
-      my={[2, 2, 2, 0]}
-      mr={[-3, -3, -3, 0]}
-      backgroundColor="#69c"
-      minWidth="340px"
-      minHeight={['420px', '446px', '446px']}
-    />
+    <SidebarHiring my={[2, 2, 2, 0]} mr={[-3, -3, -3, 0]} minWidth="340px" minHeight={['420px', '446px', '446px']} />
   )
 )``
 
@@ -38,7 +33,7 @@ k/factory was founded by the original contributors to Centrifuge. It provides so
 
 <!-- Section -->
 
-<Section heading="Work with us" position="relative">
+<Section heading="Work with us">
 
 k/factory is self-managed and remote friendly. You can read more about how we run things in our handbook.
 

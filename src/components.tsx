@@ -2,20 +2,14 @@ import * as Fabric from '@centrifuge/fabric'
 import * as FabricFlex from '@centrifuge/fabric/dist/components/Flex'
 import React, { AnchorHTMLAttributes, ImgHTMLAttributes } from 'react'
 import styled, { DefaultTheme } from 'styled-components'
+import { ColorProps, compose, system, TypographyProps } from 'styled-system'
 
 export function forwardAs<T, P>(
-  Component: React.ComponentType<P & { forwardAs?: T }>
+  Component: React.ComponentType<P & { forwardedAs?: T }>
 ): React.ComponentType<P & { as?: T }> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return ({ as, ...rest }: any) => <Component forwardAs={as as any} {...rest} />
+  return ({ as, ...rest }: any) => <Component forwardedAs={as as any} {...rest} />
 }
-
-// Text
-
-export type TextProps = Fabric.TextProps & {
-  children?: React.ReactNode
-}
-export const Text = ({ as = 'span', ...rest }: TextProps) => <Fabric.Text as={as} {...rest} />
 
 // Box
 
@@ -24,22 +18,31 @@ export interface BoxProps extends Fabric.StyledBoxProps {
   children?: React.ReactNode
 }
 export const Box = Fabric.Box
-// export const Box = styled((props) => <Fabric.Box {...props} />)<BoxProps>()
 
-// Container
+// Layout
 
 export type ContainerProps = Fabric.ContainerProps
 export const Container = Fabric.Container
 
-// Flex
-
 export type FlexProps = FabricFlex.FlexProps
 export const Flex = FabricFlex.Flex
 
-// Grid
-
 export type GridProps = Fabric.GridProps
 export const Grid = Fabric.Grid
+
+// Text
+
+export interface TextProps extends TypographyProps, ColorProps {
+  as?: string | React.ComponentType
+  textDecoration?: string
+  whiteSpace?: 'nowrap'
+}
+export const Text = forwardAs(
+  styled(({ as = 'span', ...rest }: TextProps) => {
+    return <Fabric.Text as={as} {...rest} />
+  })<TextProps>(compose(system({ whiteSpace: true, textDecoration: true })))
+)
+export const span = Text
 
 // Paragraph
 
@@ -47,10 +50,10 @@ export type ParagraphProps = BoxProps & {
   variant?: keyof DefaultTheme['typography']
 }
 export function Paragraph(props: ParagraphProps) {
-  const { variant = `body1`, ...rest } = props
+  const { variant = `body1`, children, ...rest } = props
   return (
     <Box as="p" marginBottom={2} {...rest}>
-      <Text variant={variant} {...rest} />
+      <Text variant={variant}>{children}</Text>
     </Box>
   )
 }
@@ -58,16 +61,16 @@ export const p = Paragraph
 
 // Headings
 
-export interface HeadingProps extends BoxProps {
+export type HeadingProps = BoxProps & {
+  Text?: React.ComponentType<TextProps>
   as?: string | React.ComponentType
   variant?: keyof DefaultTheme['typography']
-  children?: React.ReactNode
 }
 export function Heading(props: HeadingProps) {
-  const { as = `h2`, variant = `heading2`, ...rest } = props
+  const { Text: CText = Text, as = `h2`, variant = `heading2`, children, ...rest } = props
   return (
-    <Box as={as} marginBottom={2} {...props}>
-      <Text variant={variant} {...rest} />
+    <Box as={as} margin={0} marginBottom={2} {...rest}>
+      <CText variant={variant}>{children}</CText>
     </Box>
   )
 }
@@ -80,7 +83,7 @@ export const h6 = (props: BoxProps) => <Heading as="h6" variant="heading6" {...p
 
 // Links
 
-export type LinkProps = TextProps & AnchorHTMLAttributes<'a'>
+export interface LinkProps extends TextProps, Omit<AnchorHTMLAttributes<'a'>, 'color'> {}
 export function Link(props: LinkProps) {
   return <Text as="a" {...props} />
 }
@@ -88,31 +91,33 @@ export const a = Link
 
 // Images
 
-export type ImageProps = TextProps & ImgHTMLAttributes<'img'>
+export interface ImageProps extends BoxProps, Omit<ImgHTMLAttributes<'img'>, 'width' | 'height' | 'color'> {}
 export function Image(props: ImageProps) {
-  return <Text as="img" {...props} />
+  return <Box as="img" {...props} />
 }
 export const img = Image
 
 // Lists
 
-export type ListProps = BoxProps & {
-  children: React.ReactNode[]
+export type ListProps = BoxProps
+export function List(props: ListProps) {
+  return <Box as="ul" {...props} />
 }
-
-export const List = styled(({ children, ...rest }: ListProps) => (
-  <Box as="ul" margin={0} {...rest}>
-    {children.map((child) => (
-      <Text as="li" children={child} />
-    ))}
-  </Box>
-))``
-
 export const ul = List
+
+export type ItemProps = BoxProps
+export function Item({ children, ...rest }: ItemProps) {
+  return (
+    <Box as="li" {...rest}>
+      <Text>{children}</Text>
+    </Box>
+  )
+}
+export const li = Item
 
 // Export component shortcodes for MDX integration
 
-export const shortcodes = { h1, h2, h3, h4, h5, h6, a, p, img, ul }
+export const shortcodes = { h1, h2, h3, h4, h5, h6, span, a, p, img, ul, li }
 
 // Section
 
