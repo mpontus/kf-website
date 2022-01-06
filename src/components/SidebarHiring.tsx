@@ -47,7 +47,7 @@ const Careers = styled((props: SectionProps) => {
 
 const Gradient = styled((props: BoxProps) => (
   <Box {...props}>
-    {['#FCD1E3', '#FCB3D2', '#FC86B7', '#FC539A', '#FC6CA9', '#FC3A8B', '#FC1475'].map((color) => (
+    {['#FCD1E3', '#FCB3D2', '#FC86B7', '#FC6CA9', '#FC539A', '#FC3A8B', '#FC1475'].map((color) => (
       <Box key={color} height="62px" background={color} />
     ))}
   </Box>
