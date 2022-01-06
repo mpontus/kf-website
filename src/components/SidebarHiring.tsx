@@ -73,7 +73,6 @@ export const SidebarHiring = styled((props: FlexProps) => (
     ml={[4, 4, 4, 0]}
     my={[2, 2, 2, 0]}
     mr={[-3, -3, -3, 0]}
-    minHeight="446px"
     maxHeight={['auto', 'auto', 'auto', '100vh']}
     maxWidth={['auto', 'auto', 'auto', '340px']}
     borderWidth={['2px 0', '2px 0', '2px 0', '0 0 0 2px']}
