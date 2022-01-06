@@ -8,10 +8,8 @@ interface SlideProps extends BoxProps {
   children: React.ReactNode
 }
 
-const Slide = styled(Box)<SlideProps>`
+const Slide = styled((props: SlideProps) => <Box as="span" {...props} />)`
   position: absolute;
-  top: 0;
-  left: 0;
   transform: ${(props) => `rotateY(${props.angle}deg) translateZ(${props.distance})`};
 `
 
