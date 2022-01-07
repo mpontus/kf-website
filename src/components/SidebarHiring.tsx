@@ -1,4 +1,5 @@
 import React from 'react'
+import { StaticQuery, graphql } from 'gatsby'
 import styled from 'styled-components'
 import {
   Box,
@@ -17,6 +18,20 @@ import {
 } from '../components'
 import { Sidebar } from '../layout'
 
+const jobsQuery = graphql`
+  query JobsQuery {
+    allLever {
+      edges {
+        node {
+          id
+          text
+          hostedUrl
+        }
+      }
+    }
+  }
+`
+
 const UnderlineText = (props: TextProps) => <Text textDecoration="underline" {...props} />
 
 const Careers = styled((props: SectionProps) => {
@@ -26,12 +41,19 @@ const Careers = styled((props: SectionProps) => {
         Join our growing team at k/f
       </Heading>
       <Grid as={List} columns={1} gap="20px">
-        <Item>Campaign Marketer</Item>
-        <Item>Institutional Capital Lead</Item>
-        <Item>Product Manager</Item>
-        <Item>Senior Dev Ops Engineer</Item>
-        <Item>Senior Fullstack Engineer</Item>
-        <Item>Senior Protocol Engineer - Centrifuge Protocol</Item>
+        <StaticQuery query={jobsQuery}>
+          {({ allLever }) => {
+            const jobs = allLever.edges
+              .filter((edge: any) => edge.node.id !== 'c0f7a908-8d9e-4f3c-9b15-a4f81e033484')
+              .map((edge: any) => ({ ...edge.node }))
+
+            return jobs.map((job: any) => (
+              <Item>
+                <Link href={job.hostedURL}>{job.text}</Link>
+              </Item>
+            ))
+          }}
+        </StaticQuery>
       </Grid>
     </Box>
   )

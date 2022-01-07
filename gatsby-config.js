@@ -14,5 +14,12 @@ module.exports = {
       },
     },
     'gatsby-plugin-styled-components',
+    {
+      resolve: `gatsby-source-lever`,
+      options: {
+        site: `centrifuge`,
+        verboseOutput: false,
+      },
+    },
   ],
 }

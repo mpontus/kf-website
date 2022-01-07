@@ -237,6 +237,9 @@ export type Site = Node & {
   siteMetadata?: Maybe<SiteSiteMetadata>;
   port?: Maybe<Scalars['Int']>;
   host?: Maybe<Scalars['String']>;
+  polyfill?: Maybe<Scalars['Boolean']>;
+  pathPrefix?: Maybe<Scalars['String']>;
+  jsxRuntime?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -375,6 +378,44 @@ export type MdxTableOfContentsArgs = {
   maxDepth?: InputMaybe<Scalars['Int']>;
 };
 
+export type Lever = Node & {
+  additional?: Maybe<Scalars['String']>;
+  additionalPlain?: Maybe<Scalars['String']>;
+  applyUrl?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['Date']>;
+  description?: Maybe<Scalars['String']>;
+  descriptionPlain?: Maybe<Scalars['String']>;
+  hostedUrl?: Maybe<Scalars['String']>;
+  lever_id?: Maybe<Scalars['String']>;
+  text?: Maybe<Scalars['String']>;
+  categories?: Maybe<LeverCategories>;
+  lists?: Maybe<Array<Maybe<LeverList>>>;
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+};
+
+
+export type LeverCreatedAtArgs = {
+  formatString?: InputMaybe<Scalars['String']>;
+  fromNow?: InputMaybe<Scalars['Boolean']>;
+  difference?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+export type LeverCategories = {
+  commitment?: Maybe<Scalars['String']>;
+  level?: Maybe<Scalars['String']>;
+  location?: Maybe<Scalars['String']>;
+  team?: Maybe<Scalars['String']>;
+};
+
+export type LeverList = {
+  content?: Maybe<Scalars['String']>;
+  text?: Maybe<Scalars['String']>;
+};
+
 export type Query = {
   file?: Maybe<File>;
   allFile: FileConnection;
@@ -392,6 +433,8 @@ export type Query = {
   allSiteBuildMetadata: SiteBuildMetadataConnection;
   mdx?: Maybe<Mdx>;
   allMdx: MdxConnection;
+  lever?: Maybe<Lever>;
+  allLever: LeverConnection;
 };
 
 
@@ -494,6 +537,9 @@ export type QuerySiteArgs = {
   siteMetadata?: InputMaybe<SiteSiteMetadataFilterInput>;
   port?: InputMaybe<IntQueryOperatorInput>;
   host?: InputMaybe<StringQueryOperatorInput>;
+  polyfill?: InputMaybe<BooleanQueryOperatorInput>;
+  pathPrefix?: InputMaybe<StringQueryOperatorInput>;
+  jsxRuntime?: InputMaybe<StringQueryOperatorInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -620,6 +666,33 @@ export type QueryMdxArgs = {
 export type QueryAllMdxArgs = {
   filter?: InputMaybe<MdxFilterInput>;
   sort?: InputMaybe<MdxSortInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryLeverArgs = {
+  additional?: InputMaybe<StringQueryOperatorInput>;
+  additionalPlain?: InputMaybe<StringQueryOperatorInput>;
+  applyUrl?: InputMaybe<StringQueryOperatorInput>;
+  createdAt?: InputMaybe<DateQueryOperatorInput>;
+  description?: InputMaybe<StringQueryOperatorInput>;
+  descriptionPlain?: InputMaybe<StringQueryOperatorInput>;
+  hostedUrl?: InputMaybe<StringQueryOperatorInput>;
+  lever_id?: InputMaybe<StringQueryOperatorInput>;
+  text?: InputMaybe<StringQueryOperatorInput>;
+  categories?: InputMaybe<LeverCategoriesFilterInput>;
+  lists?: InputMaybe<LeverListFilterListInput>;
+  id?: InputMaybe<StringQueryOperatorInput>;
+  parent?: InputMaybe<NodeFilterInput>;
+  children?: InputMaybe<NodeFilterListInput>;
+  internal?: InputMaybe<InternalFilterInput>;
+};
+
+
+export type QueryAllLeverArgs = {
+  filter?: InputMaybe<LeverFilterInput>;
+  sort?: InputMaybe<LeverSortInput>;
   skip?: InputMaybe<Scalars['Int']>;
   limit?: InputMaybe<Scalars['Int']>;
 };
@@ -1263,6 +1336,9 @@ export type SiteFieldsEnum =
   | 'siteMetadata___siteUrl'
   | 'port'
   | 'host'
+  | 'polyfill'
+  | 'pathPrefix'
+  | 'jsxRuntime'
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -1396,6 +1472,9 @@ export type SiteFilterInput = {
   siteMetadata?: InputMaybe<SiteSiteMetadataFilterInput>;
   port?: InputMaybe<IntQueryOperatorInput>;
   host?: InputMaybe<StringQueryOperatorInput>;
+  polyfill?: InputMaybe<BooleanQueryOperatorInput>;
+  pathPrefix?: InputMaybe<StringQueryOperatorInput>;
+  jsxRuntime?: InputMaybe<StringQueryOperatorInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -2486,3 +2565,237 @@ export type MdxSortInput = {
   fields?: InputMaybe<Array<InputMaybe<MdxFieldsEnum>>>;
   order?: InputMaybe<Array<InputMaybe<SortOrderEnum>>>;
 };
+
+export type LeverCategoriesFilterInput = {
+  commitment?: InputMaybe<StringQueryOperatorInput>;
+  level?: InputMaybe<StringQueryOperatorInput>;
+  location?: InputMaybe<StringQueryOperatorInput>;
+  team?: InputMaybe<StringQueryOperatorInput>;
+};
+
+export type LeverListFilterListInput = {
+  elemMatch?: InputMaybe<LeverListFilterInput>;
+};
+
+export type LeverListFilterInput = {
+  content?: InputMaybe<StringQueryOperatorInput>;
+  text?: InputMaybe<StringQueryOperatorInput>;
+};
+
+export type LeverConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<LeverEdge>;
+  nodes: Array<Lever>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<LeverGroupConnection>;
+};
+
+
+export type LeverConnectionDistinctArgs = {
+  field: LeverFieldsEnum;
+};
+
+
+export type LeverConnectionMaxArgs = {
+  field: LeverFieldsEnum;
+};
+
+
+export type LeverConnectionMinArgs = {
+  field: LeverFieldsEnum;
+};
+
+
+export type LeverConnectionSumArgs = {
+  field: LeverFieldsEnum;
+};
+
+
+export type LeverConnectionGroupArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
+  field: LeverFieldsEnum;
+};
+
+export type LeverEdge = {
+  next?: Maybe<Lever>;
+  node: Lever;
+  previous?: Maybe<Lever>;
+};
+
+export type LeverFieldsEnum =
+  | 'additional'
+  | 'additionalPlain'
+  | 'applyUrl'
+  | 'createdAt'
+  | 'description'
+  | 'descriptionPlain'
+  | 'hostedUrl'
+  | 'lever_id'
+  | 'text'
+  | 'categories___commitment'
+  | 'categories___level'
+  | 'categories___location'
+  | 'categories___team'
+  | 'lists'
+  | 'lists___content'
+  | 'lists___text'
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type';
+
+export type LeverGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<LeverEdge>;
+  nodes: Array<Lever>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<LeverGroupConnection>;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+
+export type LeverGroupConnectionDistinctArgs = {
+  field: LeverFieldsEnum;
+};
+
+
+export type LeverGroupConnectionMaxArgs = {
+  field: LeverFieldsEnum;
+};
+
+
+export type LeverGroupConnectionMinArgs = {
+  field: LeverFieldsEnum;
+};
+
+
+export type LeverGroupConnectionSumArgs = {
+  field: LeverFieldsEnum;
+};
+
+
+export type LeverGroupConnectionGroupArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
+  field: LeverFieldsEnum;
+};
+
+export type LeverFilterInput = {
+  additional?: InputMaybe<StringQueryOperatorInput>;
+  additionalPlain?: InputMaybe<StringQueryOperatorInput>;
+  applyUrl?: InputMaybe<StringQueryOperatorInput>;
+  createdAt?: InputMaybe<DateQueryOperatorInput>;
+  description?: InputMaybe<StringQueryOperatorInput>;
+  descriptionPlain?: InputMaybe<StringQueryOperatorInput>;
+  hostedUrl?: InputMaybe<StringQueryOperatorInput>;
+  lever_id?: InputMaybe<StringQueryOperatorInput>;
+  text?: InputMaybe<StringQueryOperatorInput>;
+  categories?: InputMaybe<LeverCategoriesFilterInput>;
+  lists?: InputMaybe<LeverListFilterListInput>;
+  id?: InputMaybe<StringQueryOperatorInput>;
+  parent?: InputMaybe<NodeFilterInput>;
+  children?: InputMaybe<NodeFilterListInput>;
+  internal?: InputMaybe<InternalFilterInput>;
+};
+
+export type LeverSortInput = {
+  fields?: InputMaybe<Array<InputMaybe<LeverFieldsEnum>>>;
+  order?: InputMaybe<Array<InputMaybe<SortOrderEnum>>>;
+};
+
+export type JobsQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type JobsQueryQuery = { allLever: { edges: Array<{ node: { id: string, text?: string | null | undefined, hostedUrl?: string | null | undefined } }> } };
