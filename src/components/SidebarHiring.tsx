@@ -48,8 +48,8 @@ const Careers = styled((props: SectionProps) => {
               .map((edge: any) => ({ ...edge.node }))
 
             return jobs.map((job: any) => (
-              <Item>
-                <Link href={job.hostedURL}>{job.text}</Link>
+              <Item Text={(props) => <Link href={job.hostedUrl} target="_blank" {...props} />} key={job.id}>
+                {job.text}
               </Item>
             ))
           }}

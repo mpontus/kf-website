@@ -84,9 +84,11 @@ export const h6 = (props: BoxProps) => <Heading as="h6" variant="heading6" {...p
 // Links
 
 export interface LinkProps extends TextProps, Omit<AnchorHTMLAttributes<'a'>, 'color'> {}
-export function Link(props: LinkProps) {
-  return <Text as="a" {...props} />
-}
+export const Link = styled((props: LinkProps) => <Text as="a" {...props} />)<LinkProps>`
+  :hover {
+    text-decoration: underline;
+  }
+`
 export const a = Link
 
 // Images
@@ -105,11 +107,13 @@ export function List(props: ListProps) {
 }
 export const ul = List
 
-export type ItemProps = BoxProps
-export function Item({ children, ...rest }: ItemProps) {
+export type ItemProps = BoxProps & {
+  Text?: React.ComponentType<TextProps>
+}
+export function Item({ Text: TextComponent = Text, children, ...rest }: ItemProps) {
   return (
     <Box as="li" {...rest}>
-      <Text>{children}</Text>
+      <TextComponent>{children}</TextComponent>
     </Box>
   )
 }
