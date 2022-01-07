@@ -53,7 +53,11 @@ export const Layout = styled((props: BoxProps) => <Box maxWidth="container" mx="
 
   ${({ theme }) => `${theme.mediaQueries.large} {
     display: grid;
-    grid: \"head side\" \"main side\" \"foot side\";
+    grid:
+      \". head side\"
+      \". main side\"
+      \". foot side\";
+    grid-template-columns: minmax(260px, 1fr) auto minmax(260px, 1fr)
   }`}
 `
 

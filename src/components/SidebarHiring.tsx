@@ -95,19 +95,21 @@ export const SidebarHiring = styled((props: FlexProps) => (
     ml={[4, 4, 4, 0]}
     my={[2, 2, 2, 0]}
     mr={[-3, -3, -3, 0]}
-    maxHeight={['auto', 'auto', 'auto', '100vh']}
-    maxWidth={['auto', 'auto', 'auto', '340px']}
+    maxHeight={{ L: '100vh' }}
+    maxWidth={{ L: '340px' }}
     borderWidth={['2px 0', '2px 0', '2px 0', '0 0 0 2px']}
     borderStyle="solid"
     borderColor="borderPrimary"
-    position={{ L: 'sticky' }}
+    position={{ L: 'fixed' }}
     top="0"
+    bottom="0"
+    right="0"
     overflow="visible"
     {...props}
   >
     <Box position="relative" flex="1">
-      <Careers width="260px" flex="1" py={[2, 2, 2, 3]} px={[0, 0, 0, 3]} />
-      <HiringEmail position="absolute" top={[2, 2, 2, 4]} right={[0, 0, 0, '100%']} email="work@k-f.co" />
+      <Careers width="260px" flex="1" py={[2, 2, 2, 3]} px={{ L: 3 }} />
+      <HiringEmail position="absolute" top={[2, 2, 2, 4]} right={{ L: '100%' }} email="work@k-f.co" />
     </Box>
     <Gradient flex={['1', '1', '1', '0']} maxWidth={['336px', '336px', '336px', '100%']} />
   </Flex>
