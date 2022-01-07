@@ -57,7 +57,7 @@ export const Layout = styled((props: BoxProps) => <Box maxWidth="container" mx="
       \". head side\"
       \". main side\"
       \". foot side\";
-    grid-template-columns: minmax(260px, 1fr) auto minmax(260px, 1fr)
+    grid-template-columns: 1fr auto minmax(260px, 1fr)
   }`}
 `
 
