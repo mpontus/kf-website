@@ -82,7 +82,7 @@ export interface HiringEmail extends BoxProps {
 const HiringEmailLink = (props: LinkProps) => <Link whiteSpace="nowrap" fontSize="32px" fontWeight="600" {...props} />
 
 const HiringEmail = styled(({ email, ...rest }) => (
-  <Box as={HiringEmailLink} href={`mailto:${email}`} children={email} {...rest} />
+  <Box as={HiringEmailLink} href={`mailto:${email}`} target="_blank" children={email} {...rest} />
 ))`
   transform-origin: top right;
   transform: rotate(-90deg) translateY(-100%);
