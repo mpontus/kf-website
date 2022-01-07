@@ -14,7 +14,7 @@ const breakpoints = [`600px`, `800px`, `1140px`, `1920px`]
 const typography = {
   ...baseTheme.typography,
   body1: {
-    fontSize: [`16px`, `16px`, `20px`],
+    fontSize: [`16px`, `16px`, `18px`],
     fontWeight: 400,
     lineHeight: 1.5,
   },
@@ -24,7 +24,7 @@ const typography = {
     lineHeight: 1.5,
   },
   heading1: {
-    fontSize: [`4rem`, `5.25rem`, `7.125rem`],
+    fontSize: '4rem',
     fontWeight: 600,
     lineHeight: [0.6, 1],
   },
