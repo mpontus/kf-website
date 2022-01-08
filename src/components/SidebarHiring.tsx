@@ -40,6 +40,8 @@ const UnderlineLink = styled(Link)<LinkProps>`
   }
 `
 
+const EXCLUDED_JOBS = ['https://jobs.lever.co/centrifuge/c0f7a908-8d9e-4f3c-9b15-a4f81e033484']
+
 const Careers = styled((props: SectionProps) => {
   return (
     <Box {...props}>
@@ -50,10 +52,10 @@ const Careers = styled((props: SectionProps) => {
         <StaticQuery query={jobsQuery}>
           {({ allLever }) =>
             (allLever.edges as LeverEdge[])
-              .filter(({ node }) => node.id !== 'c0f7a908-8d9e-4f3c-9b15-a4f81e033484')
+              .filter(({ node }) => typeof node.hostedUrl === 'string' && !EXCLUDED_JOBS.includes(node.hostedUrl))
               .map(({ node }) => {
                 const TextComponent = (props: TextProps) => (
-                  <UnderlineLink href={node.hostedUrl ?? undefined} target="_blank" {...props} />
+                  <UnderlineLink href={node.hostedUrl ?? ''} target="_blank" {...props} />
                 )
                 return <Item key={node.id} Text={TextComponent} children={node.text} />
               })
