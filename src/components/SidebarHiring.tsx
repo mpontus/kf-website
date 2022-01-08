@@ -17,6 +17,7 @@ import {
   TextProps,
 } from '../components'
 import { Sidebar } from '../layout'
+import { LeverEdge } from '../../graphql-types'
 
 const jobsQuery = graphql`
   query JobsQuery {
@@ -47,17 +48,16 @@ const Careers = styled((props: SectionProps) => {
       </Heading>
       <Grid as={List} columns={1} gap="20px">
         <StaticQuery query={jobsQuery}>
-          {({ allLever }) => {
-            const jobs = allLever.edges
-              .filter((edge: any) => edge.node.id !== 'c0f7a908-8d9e-4f3c-9b15-a4f81e033484')
-              .map((edge: any) => ({ ...edge.node }))
-
-            return jobs.map((job: any) => (
-              <Item Text={(props) => <UnderlineLink href={job.hostedUrl} target="_blank" {...props} />} key={job.id}>
-                {job.text}
-              </Item>
-            ))
-          }}
+          {({ allLever }) =>
+            (allLever.edges as LeverEdge[])
+              .filter(({ node }) => node.id !== 'c0f7a908-8d9e-4f3c-9b15-a4f81e033484')
+              .map(({ node }) => {
+                const TextComponent = (props: TextProps) => (
+                  <UnderlineLink href={node.hostedUrl ?? undefined} target="_blank" {...props} />
+                )
+                return <Item key={node.id} Text={TextComponent} children={node.text} />
+              })
+          }
         </StaticQuery>
       </Grid>
     </Box>
