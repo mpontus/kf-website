@@ -5,6 +5,19 @@ import { margin } from 'styled-system'
 import { SidebarHiring } from '../components/SidebarHiring'
 import { SpinningText, Scene } from '../components/HeroSpinningText'
 
+export function toggleDisplay(query) {
+  return () => {
+    for (const node of document.querySelectorAll(query)) {
+      if (node.style.display === 'none') {
+        node.style.display = 'initial'
+        continue
+      }
+      node.src = node.src // stop the video
+      node.style.display = 'none'
+    }
+  }
+}
+
 export default styled(withSidebar(<SidebarHiring />))``
 
 <!-- Hero-->
@@ -59,6 +72,18 @@ We have a big vision to change the rules of global trade: our DApp is live and g
 
 We offer competitive compensation based on your skills, not your gender or background.
 
-Learn more about who we are and why you should join here.
+Learn more about who we are and why you should join <a onClick={toggleDisplay('#embedded-video')}>here</a>.
+
+<iframe
+  id="embedded-video"
+  style={{ display: 'none' }}
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/h8tfJ9EtIpY"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+></iframe>
 
 </Section>
