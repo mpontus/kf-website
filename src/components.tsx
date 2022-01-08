@@ -35,13 +35,14 @@ export const Grid = Fabric.Grid
 
 export interface TextProps extends TypographyProps, ColorProps {
   as?: string | React.ComponentType
+  cursor?: string
   textDecoration?: string
-  whiteSpace?: 'nowrap'
+  whiteSpace?: string
 }
 export const Text = forwardAs(
   styled(({ as = 'span', ...rest }: TextProps) => {
     return <Fabric.Text as={as} {...rest} />
-  })<TextProps>(compose(system({ whiteSpace: true, textDecoration: true })))
+  })<TextProps>(system({ cursor: true, whiteSpace: true, textDecoration: true }))
 )
 export const span = Text
 
@@ -87,7 +88,7 @@ export const h6 = (props: BoxProps) => <Heading as="h6" variant="heading6" {...p
 // Links
 
 export interface LinkProps extends TextProps, Omit<AnchorHTMLAttributes<'a'>, 'color'> {}
-export const Link = (props: LinkProps) => <Text as="a" {...props} />
+export const Link = (props: LinkProps) => <Text as="a" cursor="pointer" textDecoration="underline" {...props} />
 export const a = Link
 
 // Images

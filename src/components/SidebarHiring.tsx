@@ -35,6 +35,7 @@ const jobsQuery = graphql`
 
 const UnderlineText = (props: TextProps) => <Text textDecoration="underline" {...props} />
 const UnderlineLink = styled(Link)<LinkProps>`
+  text-decoration: none;
   :hover {
     text-decoration: underline;
   }
@@ -86,7 +87,9 @@ export interface HiringEmail extends BoxProps {
   email: string
 }
 
-const HiringEmailLink = (props: LinkProps) => <Link whiteSpace="nowrap" fontSize="32px" fontWeight="600" {...props} />
+const HiringEmailLink = (props: LinkProps) => (
+  <Link whiteSpace="nowrap" textDecoration="none" fontSize="32px" fontWeight="600" {...props} />
+)
 
 const HiringEmail = styled(({ email, ...rest }) => (
   <Box as={HiringEmailLink} href={`mailto:${email}`} target="_blank" children={email} {...rest} />
