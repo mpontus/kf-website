@@ -15,9 +15,10 @@ export function forwardAs<T, P>(
 
 export interface BoxProps extends Fabric.StyledBoxProps {
   as?: string | React.ComponentType
+  transform?: string
   children?: React.ReactNode
 }
-export const Box = Fabric.Box
+export const Box = styled(Fabric.Box)<BoxProps>(system({ transform: true }))
 
 // Layout
 
@@ -65,12 +66,14 @@ export type HeadingProps = BoxProps & {
   Text?: React.ComponentType<TextProps>
   as?: string | React.ComponentType
   variant?: keyof DefaultTheme['typography']
+  badge?: React.ReactNode
 }
 export function Heading(props: HeadingProps) {
-  const { Text: CText = Text, as = `h2`, variant = `heading2`, children, ...rest } = props
+  const { Text: TextComponent = Text, as = `h2`, variant = `heading2`, badge, children, ...rest } = props
   return (
-    <Box as={as} margin={0} marginBottom={2} {...rest}>
-      <CText variant={variant}>{children}</CText>
+    <Box as={as} position="relative" margin={0} marginBottom={2} {...rest}>
+      <TextComponent variant={variant}>{children}</TextComponent>
+      {badge}
     </Box>
   )
 }
@@ -126,17 +129,36 @@ export const shortcodes = { h1, h2, h3, h4, h5, h6, span, a, p, img, ul, li }
 // Section
 
 export type SectionProps = BoxProps & {
-  heading?: string
+  Heading?: React.ComponentType<HeadingProps>
+  headline?: string
   children?: React.ReactNode
 }
 export const Section = styled((props: SectionProps) => {
-  const { heading, children, ...rest } = props
+  const { Heading: HeadingComponent = Heading, headline, children, ...rest } = props
   return (
     <Box as="section" mb={5} maxWidth={{ L: 'section' }} {...rest}>
-      <Heading variant="heading1" borderBottom="2px solid white" pb={1} mb={2} mr={-4}>
-        {heading}
-      </Heading>
+      <HeadingComponent variant="heading1" borderBottom="2px solid white" pb={1} mb={2} mr={-4}>
+        {headline}
+      </HeadingComponent>
       {children}
     </Box>
   )
 })``
+
+export type BadgeProps = BoxProps & {
+  Text: React.ComponentType<TextProps>
+}
+
+export const Badge = forwardAs(
+  styled((props: BadgeProps) => {
+    const { Text: TextComponent = Text, children, ...rest } = props
+
+    return (
+      <Box display="inline-block" bg="textPrimary" py={1} px={2} {...rest}>
+        <TextComponent variant="heading3" whiteSpace="nowrap" color="backgroundPrimary">
+          {children}
+        </TextComponent>
+      </Box>
+    )
+  })<{ transform: string }>(system({ transform: true }))
+)

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import DefaultLayout, { Main, Sidebar, withSidebar } from '../layout'
-import { Box, Section, Link } from '../components'
+import { Box, Text, Section, Link, Heading, Badge } from '../components'
 import { margin } from 'styled-system'
 import { SidebarHiring } from '../components/SidebarHiring'
 import { SpinningText, Scene } from '../components/HeroSpinningText'
@@ -21,7 +21,7 @@ export default styled(withSidebar(<SidebarHiring />))``
 
 <!-- Section -->
 
-<Section heading="About">
+<Section headline="About">
 
 k/factory was founded by the original contributors to Centrifuge. It provides software development and other services for Centrifuge chain as well as other parts of the Centrifuge ecosystem.
 
@@ -29,22 +29,22 @@ k/factory was founded by the original contributors to Centrifuge. It provides so
 
 <!-- Section -->
 
-<Section heading="Work with us" position="relative">
+export const badge = (
+  <Box
+    bg="textPrimary"
+    py={1}
+    px={2}
+    display={['none', 'inline-flex']}
+    transform="translateY(-50%) rotate(-25deg)"
+    mr="-60px"
+  >
+    <Link href="mailto:work@k-f.co" target="_blank" whiteSpace="nowrap" variant="heading3" color="backgroundPrimary">
+      We're hiring!
+    </Link>
+  </Box>
+)
 
-<Box
-  display={['none', 'inline-block']}
-  css={{ transform: 'translateX(30%) rotate(-25deg)' }}
-  position="absolute"
-  top="0"
-  right="0"
-  bg="textPrimary"
-  py={1}
-  px={2}
->
-  <Link href="mailto:work@k-f.co" target="_blank" variant="heading3" whiteSpace="nowrap" color="backgroundPrimary">
-    We're hiring!
-  </Link>
-</Box>
+<Section Heading={props => <Heading Text={props => <Text whiteSpace="nowrap" {...props} />} badge={badge} {...props} />} headline="Work with us">
 
 k/factory is self-managed and remote friendly. You can read more about how we run things in our handbook.
 
