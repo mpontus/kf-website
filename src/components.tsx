@@ -140,21 +140,3 @@ export const Section = styled((props: SectionProps) => {
     </Box>
   )
 })``
-
-export type BadgeProps = BoxProps & {
-  Text: React.ComponentType<TextProps>
-}
-
-export const Badge = forwardAs(
-  styled((props: BadgeProps) => {
-    const { Text: TextComponent = Text, children, ...rest } = props
-
-    return (
-      <Box display="inline-block" bg="textPrimary" py={1} px={2} {...rest}>
-        <TextComponent variant="heading3" whiteSpace="nowrap" color="backgroundPrimary">
-          {children}
-        </TextComponent>
-      </Box>
-    )
-  })<{ transform: string }>(system({ transform: true }))
-)
