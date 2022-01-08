@@ -33,6 +33,11 @@ const jobsQuery = graphql`
 `
 
 const UnderlineText = (props: TextProps) => <Text textDecoration="underline" {...props} />
+const UnderlineLink = styled(Link)<LinkProps>`
+  :hover {
+    text-decoration: underline;
+  }
+`
 
 const Careers = styled((props: SectionProps) => {
   return (
@@ -48,7 +53,7 @@ const Careers = styled((props: SectionProps) => {
               .map((edge: any) => ({ ...edge.node }))
 
             return jobs.map((job: any) => (
-              <Item Text={(props) => <Link href={job.hostedUrl} target="_blank" {...props} />} key={job.id}>
+              <Item Text={(props) => <UnderlineLink href={job.hostedUrl} target="_blank" {...props} />} key={job.id}>
                 {job.text}
               </Item>
             ))

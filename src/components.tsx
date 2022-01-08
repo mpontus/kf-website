@@ -87,11 +87,7 @@ export const h6 = (props: BoxProps) => <Heading as="h6" variant="heading6" {...p
 // Links
 
 export interface LinkProps extends TextProps, Omit<AnchorHTMLAttributes<'a'>, 'color'> {}
-export const Link = styled((props: LinkProps) => <Text as="a" {...props} />)<LinkProps>`
-  :hover {
-    text-decoration: underline;
-  }
-`
+export const Link = (props: LinkProps) => <Text as="a" {...props} />
 export const a = Link
 
 // Images
