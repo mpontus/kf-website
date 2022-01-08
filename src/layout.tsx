@@ -1,8 +1,10 @@
 import { GlobalStyle } from '@centrifuge/fabric'
 import { MDXProvider } from '@mdx-js/react'
-import React from 'react'
+import * as Gatsby from 'gatsby'
+import React, { memo } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import { Box, BoxProps, Grid, Image, Paragraph, shortcodes } from './components'
+import { SEO } from './components/SEO'
 import { theme } from './theme'
 
 // Providers
@@ -25,8 +27,23 @@ const withThemeProvider: Decorator = (Component) => (props) =>
     </ThemeProvider>
   )
 
+interface PageContext {
+  frontmatter: NodeJS.Dict<any>
+}
+
+const withSEO: Decorator<Gatsby.PageProps<unknown, PageContext>> = (Component) => (props) => {
+  const { title, description, image, article } = props.pageContext.frontmatter
+  console.log({ props })
+
+  return (
+    <SEO title={title} description={description} image={image} article={article}>
+      <Component {...props} />
+    </SEO>
+  )
+}
+
 function enhance<P>(component: React.ComponentType<P>) {
-  return withThemeProvider(withMDXProvider(component))
+  return withSEO(withThemeProvider(withMDXProvider(memo(component))))
 }
 
 // Layout
@@ -91,7 +108,7 @@ const DefaultFooter: React.FC = () => (
   </Footer>
 )
 
-export const DefaultLayout: React.FC = enhance(({ children, ...rest }) => (
+export const DefaultLayout = enhance(({ children, ...rest }) => (
   <Layout {...rest}>
     <DefaultHeader />
     <Main>{children}</Main>
@@ -99,17 +116,14 @@ export const DefaultLayout: React.FC = enhance(({ children, ...rest }) => (
   </Layout>
 ))
 
-export const withSidebar = (sidebar: React.ReactNode): React.FC =>
-  enhance((props) => {
-    const { children, ...rest } = props
-    return (
-      <Layout {...rest}>
-        <DefaultHeader />
-        <Main>{children}</Main>
-        {sidebar}
-        <DefaultFooter />
-      </Layout>
-    )
-  })
+export const withSidebar = (sidebar: React.ReactNode) =>
+  enhance(({ children, ...rest }) => (
+    <Layout {...rest}>
+      <DefaultHeader />
+      <Main>{children}</Main>
+      {sidebar}
+      <DefaultFooter />
+    </Layout>
+  ))
 
 export default DefaultLayout

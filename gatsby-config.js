@@ -1,7 +1,10 @@
 module.exports = {
   siteMetadata: {
-    siteUrl: `https://www.yourdomain.tld`,
+    siteUrl: `https://kf-web.netlify.app`,
     title: `kf-website`,
+    titleTemplate: `%s - kf-website`,
+    description:
+      'k/factory is a software studio building open source software powering the financial system of tomorrow',
   },
   plugins: [
     `gatsby-plugin-mdx`,
@@ -21,5 +24,6 @@ module.exports = {
         verboseOutput: false,
       },
     },
+    'gatsby-plugin-react-helmet',
   ],
 }
