@@ -71,7 +71,11 @@ export const ToggleModal = (props) => {
       </Ratio>
     </Modal>
   ))
-  return <Link onClick={showModal} {...props} />
+  const handleClick = useCallback((event) => {
+    event.preventDefault()
+    showModal()
+  }, [])
+  return <Link href="https://www.youtube.com/watch?v=h8tfJ9EtIpY" onClick={handleClick} {...props} />
 }
 
 <Section Heading={props => <Heading badge={badge} {...props} />} headline="Work with us">
