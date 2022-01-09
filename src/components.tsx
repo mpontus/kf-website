@@ -2,7 +2,7 @@ import * as Fabric from '@centrifuge/fabric'
 import * as FabricFlex from '@centrifuge/fabric/dist/components/Flex'
 import React, { AnchorHTMLAttributes, ImgHTMLAttributes } from 'react'
 import styled, { DefaultTheme } from 'styled-components'
-import { ColorProps, compose, system, TypographyProps } from 'styled-system'
+import { ColorProps, system, TypographyProps } from 'styled-system'
 
 export function forwardAs<T, P>(
   Component: React.ComponentType<P & { forwardedAs?: T }>

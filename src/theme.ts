@@ -65,6 +65,7 @@ const sizes = {
   ...baseTheme.sizes,
   container: 1680,
   section: 920,
+  modal: 720,
 }
 const space = [0, 8, 16, 24, 40, 64]
 const fonts = {

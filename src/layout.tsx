@@ -6,6 +6,7 @@ import styled, { ThemeProvider } from 'styled-components'
 import { Box, BoxProps, Grid, Image, Paragraph, shortcodes } from './components'
 import { SEO } from './components/SEO'
 import { theme } from './theme'
+import { ModalProvider } from 'react-modal-hook'
 
 // Providers
 type Decorator<R = unknown> = <P>(Component: React.ComponentType<P>) => React.FC<R & P>
@@ -27,13 +28,19 @@ const withThemeProvider: Decorator = (Component) => (props) =>
     </ThemeProvider>
   )
 
+const withModalProvider: Decorator = (Component) => (props) =>
+  (
+    <ModalProvider>
+      <Component {...props} />
+    </ModalProvider>
+  )
+
 interface PageContext {
   frontmatter: NodeJS.Dict<any>
 }
 
 const withSEO: Decorator<Gatsby.PageProps<unknown, PageContext>> = (Component) => (props) => {
   const { title, description, image, article } = props.pageContext.frontmatter
-  console.log({ props })
 
   return (
     <SEO title={title} description={description} image={image} article={article}>
@@ -43,7 +50,7 @@ const withSEO: Decorator<Gatsby.PageProps<unknown, PageContext>> = (Component) =
 }
 
 function enhance<P>(component: React.ComponentType<P>) {
-  return withSEO(withThemeProvider(withMDXProvider(memo(component))))
+  return withSEO(withThemeProvider(withMDXProvider(withModalProvider(memo(component)))))
 }
 
 // Layout
