@@ -102,9 +102,8 @@ export const SidebarHiring = styled((props: FlexProps) => (
   <Flex
     as={Sidebar}
     flexDirection={{ L: 'column' }}
-    ml={[4, 4, 4, 0]}
+    ml={[2, 3, 4, 0]}
     my={[2, 2, 2, 0]}
-    mr={[-3, -3, -3, 0]}
     maxHeight={{ L: '100vh' }}
     maxWidth={{ L: '340px' }}
     borderWidth={['2px 0', '2px 0', '2px 0', '0 0 0 2px']}

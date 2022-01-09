@@ -55,15 +55,15 @@ function enhance<P>(component: React.ComponentType<P>) {
 
 // Layout
 
-export const Header = styled((props: BoxProps) => <Box as="header" minHeight="header" p="4" {...props} />)`
+export const Header = styled((props: BoxProps) => <Box as="header" minHeight="header" p={[2, 3, 4]} {...props} />)`
   grid-area: head;
 `
 
-export const Footer = styled((props: BoxProps) => <Box as="footer" p={4} {...props} />)`
+export const Footer = styled((props: BoxProps) => <Box as="footer" p={[2, 3, 4]} {...props} />)`
   grid-area: foot;
 `
 
-export const Main = styled((props: BoxProps) => <Grid as="main" px={4} columns={1} {...props} />)`
+export const Main = styled((props: BoxProps) => <Box as="main" overflow="hidden" px={[2, 3, 4]} {...props} />)`
   grid-area: main;
 `
 
