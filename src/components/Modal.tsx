@@ -73,7 +73,7 @@ export function Modal(props: ModalProps) {
   const { titleText, children, onExit, ...rest } = props
 
   return (
-    <Container titleText={titleText} onExit={onExit} {...rest}>
+    <Container escapeExits titleText={titleText} onExit={onExit} {...rest}>
       <Box as="header" textAlign="right" m={1}>
         <Button title="Close" width="24px" height="24px" p={2} m={-1} float="right" onClick={onExit}>
           ✖
