@@ -1,0 +1,95 @@
+import styled from 'styled-components'
+import DefaultLayout, { Main, Sidebar, withSidebar } from '../layout'
+import { Box, Text, Section, Link, Heading, Badge } from '../components'
+import { margin } from 'styled-system'
+import { SidebarHiring } from '../components/SidebarHiring'
+import { SpinningText, Scene } from '../components/HeroSpinningText'
+
+export function toggleDisplay(query) {
+  return () => {
+    const node = document.querySelector(query)
+    if (node.style.display === 'none') {
+      node.style.display = null
+      return
+    }
+    const iframe = node.querySelector('iframe')
+    iframe.src = iframe.src // stop the video
+    node.style.display = 'none'
+  }
+}
+
+export default styled(withSidebar(<SidebarHiring />))``
+
+<!-- Hero-->
+
+<Scene perspective="800px" height="500px">
+  <SpinningText
+    duration="30s"
+    fontSize={['1.4rem', '1.8rem', '2.4rem']}
+    rotateX={-15}
+    rotateZ={-15}
+    text="    OUR MISSION IS TO BUILD & SUPPORT A FINANCIAL ECOSYSTEM ON THE CENTRIFUGE PROTOCOL"
+  />
+</Scene>
+
+<!-- Section -->
+
+<Section headline="About">
+
+k/factory was founded by the original contributors to Centrifuge. It provides software development and other services for Centrifuge chain as well as other parts of the Centrifuge ecosystem.
+
+</Section>
+
+<!-- Section -->
+
+export const badge = (
+  <Box
+    bg="textPrimary"
+    py={1}
+    px={2}
+    display={['none', 'inline-flex']}
+    transform="translateY(-50%) rotate(-25deg)"
+    mr="-60px"
+  >
+    <Link
+      href="mailto:work@k-f.co"
+      target="_blank"
+      whiteSpace="nowrap"
+      variant="heading3"
+      color="backgroundPrimary"
+      textDecoration="none"
+    >
+      We're hiring!
+    </Link>
+  </Box>
+)
+
+<Section Heading={props => <Heading Text={props => <Text whiteSpace="nowrap" {...props} />} badge={badge} {...props} />} headline="Work with us">
+
+k/factory is self-managed and remote friendly. You can read more about how we run things in our handbook.
+
+We have a big vision to change the rules of global trade: our DApp is live and gaining traction to lower the barriers of raising capital.
+
+We offer competitive compensation based on your skills, not your gender or background.
+
+Learn more about who we are and why you should join <a onClick={toggleDisplay('#embedded-video')}>here</a>.
+
+<Box id="embedded-video" style={{ display: 'none' }} maxWidth="560px">
+  <Box position="relative" overflow="hidden" height="0" pt={`${100 / (16 / 9)}%`}>
+    <Box
+      as="iframe"
+      position="absolute"
+      top="0"
+      left="0"
+      width="100%"
+      height="100%"
+      src="https://www.youtube.com/embed/h8tfJ9EtIpY"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    />
+  </Box>
+</Box>
+
+</Section>
