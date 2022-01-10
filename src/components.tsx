@@ -48,13 +48,14 @@ export const span = Text
 // Paragraph
 
 export type ParagraphProps = BoxProps & {
+  Text?: React.ComponentType<TextProps>
   variant?: keyof DefaultTheme['typography']
 }
 export function Paragraph(props: ParagraphProps) {
-  const { variant = `body1`, children, ...rest } = props
+  const { Text: TextComponent = Text, variant = `body1`, children, ...rest } = props
   return (
-    <Box as="p" marginBottom={2} {...rest}>
-      <Text variant={variant}>{children}</Text>
+    <Box as="p" my={[1, 2]} {...rest}>
+      <TextComponent variant={variant}>{children}</TextComponent>
     </Box>
   )
 }
@@ -71,7 +72,7 @@ export type HeadingProps = BoxProps & {
 export function Heading(props: HeadingProps) {
   const { Text: TextComponent = Text, as = `h2`, variant = `heading2`, badge, children, ...rest } = props
   return (
-    <Box as={as} position="relative" margin={0} marginBottom={2} {...rest}>
+    <Box as={as} position="relative" m={0} mb={2} {...rest}>
       <TextComponent variant={variant}>{children}</TextComponent>
       {badge}
     </Box>
@@ -87,7 +88,9 @@ export const h6 = (props: BoxProps) => <Heading as="h6" variant="heading6" {...p
 // Links
 
 export interface LinkProps extends TextProps, Omit<AnchorHTMLAttributes<'a'>, 'color'> {}
-export const Link = (props: LinkProps) => <Text as="a" cursor="pointer" textDecoration="underline" {...props} />
+export function Link(props: LinkProps) {
+  return <Text as="a" cursor="pointer" textDecoration="underline" {...props} />
+}
 export const a = Link
 
 // Images
@@ -121,22 +124,3 @@ export const li = Item
 // Export component shortcodes for MDX integration
 
 export const shortcodes = { h1, h2, h3, h4, h5, h6, span, a, p, img, ul, li }
-
-// Section
-
-export type SectionProps = BoxProps & {
-  Heading?: React.ComponentType<HeadingProps>
-  headline?: string
-  children?: React.ReactNode
-}
-export const Section = styled((props: SectionProps) => {
-  const { Heading: HeadingComponent = Heading, headline, children, ...rest } = props
-  return (
-    <Box as="section" mb={5} maxWidth={{ L: 'section' }} {...rest}>
-      <HeadingComponent variant="heading1" borderBottom="2px solid white" pb={1} mb={2} mr={[-2, -3, -4]}>
-        {headline}
-      </HeadingComponent>
-      {children}
-    </Box>
-  )
-})``

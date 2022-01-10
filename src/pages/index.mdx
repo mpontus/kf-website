@@ -3,7 +3,8 @@ import { useCallback } from 'react'
 import { useModal } from 'react-modal-hook'
 import styled from 'styled-components'
 import { withSidebar } from '../layout'
-import { Box, Section, Link, Heading } from '../components'
+import { Box, Link, Heading, Paragraph, Image } from '../components'
+import { Section } from '../components/Section'
 import { SidebarHiring } from '../components/SidebarHiring'
 import { SpinningText, Scene } from '../components/HeroSpinningText'
 import { Ratio } from '../components/Ratio'
@@ -54,29 +55,6 @@ export const badge = (
   </Box>
 )
 
-export const ToggleModal = (props) => {
-  const [showModal, hideModal] = useModal(() => (
-    <Modal titleText="Centrifuge: Our Mission" onExit={hideModal}>
-      <Ratio ratio={16 / 9}>
-        <iframe
-          width="100%"
-          height="100%"
-          src="https://www.youtube.com/embed/h8tfJ9EtIpY?autoplay=1"
-          title="YouTube video player"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-        ></iframe>
-      </Ratio>
-    </Modal>
-  ))
-  const handleClick = useCallback((event) => {
-    event.preventDefault()
-    showModal()
-  }, [])
-  return <Link href="https://www.youtube.com/watch?v=h8tfJ9EtIpY" onClick={handleClick} {...props} />
-}
-
 <Section Heading={props => <Heading badge={badge} {...props} />} headline="Work with us">
 
 k/factory is self-managed and remote friendly. You can read more about how we run things in our handbook.
@@ -85,6 +63,39 @@ We have a big vision to change the rules of global trade: our DApp is live and g
 
 We offer competitive compensation based on your skills, not your gender or background.
 
-Learn more about who we are and why you should join <ToggleModal>here</ToggleModal>.
+Learn more about who we are and why you should join below.
 
 </Section>
+
+<!-- Centrifuge logo -->
+
+<Box textAlign="center" mb={5}>
+
+<Paragraph m={0} mb={2}>
+  k/factory is a contributor to
+</Paragraph>
+
+<Image
+  src={
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    require('../images/centrifuge-logo.svg').default
+  }
+  width={183}
+  height={55}
+/>
+
+</Box>
+
+<!-- Video -->
+
+<Ratio ratio={16 / 9} mb={4}>
+  <iframe
+    width="100%"
+    height="100%"
+    src="https://www.youtube.com/embed/h8tfJ9EtIpY"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+  ></iframe>
+</Ratio>

@@ -3,7 +3,7 @@ import { MDXProvider } from '@mdx-js/react'
 import * as Gatsby from 'gatsby'
 import React, { memo } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import { Box, BoxProps, Image, Paragraph, shortcodes } from './components'
+import { Box, BoxProps, Image, Paragraph, Text, shortcodes } from './components'
 import { SEO } from './components/SEO'
 import { theme } from './theme'
 import { ModalProvider } from 'react-modal-hook'
@@ -98,20 +98,12 @@ const DefaultHeader: React.FC = () => (
 )
 
 const DefaultFooter: React.FC = () => (
-  <Footer textAlign="center">
-    <Paragraph m={0}>k/factory is a contributor to</Paragraph>
-
-    <Image
-      src={
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        require('./images/centrifuge-logo.svg').default
-      }
-      width={183}
-      height={55}
-      my={3}
-    />
-
-    <Paragraph m={0}>k-f dev AG, Grafenauweg 8, 6300 Zug</Paragraph>
+  <Footer mb="24px">
+    <Paragraph textAlign="center" my={0}>
+      k-f dev AG, Grafenauweg 8, 6300 Zug,
+      <br />
+      Switzerland
+    </Paragraph>
   </Footer>
 )
 
@@ -132,5 +124,3 @@ export const withSidebar = (sidebar: React.ReactNode) =>
       <DefaultFooter />
     </Layout>
   ))
-
-export default DefaultLayout
