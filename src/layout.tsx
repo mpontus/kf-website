@@ -59,7 +59,7 @@ export const Header = styled((props: BoxProps) => <Box as="header" minHeight="he
   grid-area: head;
 `
 
-export const Footer = styled((props: BoxProps) => <Box as="footer" p={[2, 3, 4]} {...props} />)`
+export const Footer = styled((props: BoxProps) => <Box as="footer" mb="20px" p={[2, 3, 4]} {...props} />)`
   grid-area: foot;
 `
 
