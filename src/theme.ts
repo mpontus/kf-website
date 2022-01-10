@@ -27,11 +27,6 @@ const typography = {
     fontSize: '4rem',
     fontWeight: 600,
     lineHeight: [0.6, 1],
-    ':after': {
-      content: 'foo',
-      display: 'block',
-      background: 'red',
-    },
   },
   heading2: {
     fontSize: '3rem',

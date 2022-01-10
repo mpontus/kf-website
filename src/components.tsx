@@ -7,7 +7,6 @@ import { ColorProps, system, TypographyProps } from 'styled-system'
 export function forwardAs<T, P>(
   Component: React.ComponentType<P & { forwardedAs?: T }>
 ): React.ComponentType<P & { as?: T }> {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return ({ as, ...rest }: any) => <Component forwardedAs={as as any} {...rest} />
 }
 

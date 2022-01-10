@@ -1,23 +1,9 @@
+import { graphql, StaticQuery } from 'gatsby'
 import React from 'react'
-import { StaticQuery, graphql } from 'gatsby'
 import styled from 'styled-components'
-import {
-  Box,
-  BoxProps,
-  Flex,
-  FlexProps,
-  Grid,
-  Heading,
-  Item,
-  Link,
-  LinkProps,
-  List,
-  SectionProps,
-  Text,
-  TextProps,
-} from '../components'
-import { Sidebar } from '../layout'
 import { LeverEdge } from '../../graphql-types'
+import { Box, BoxProps, Flex, Grid, Heading, Item, Link, LinkProps, List, Text, TextProps } from '../components'
+import { Sidebar } from '../layout'
 
 const jobsQuery = graphql`
   query JobsQuery {
@@ -43,29 +29,27 @@ const UnderlineLink = styled(Link)<LinkProps>`
 
 const EXCLUDED_JOBS = ['https://jobs.lever.co/centrifuge/c0f7a908-8d9e-4f3c-9b15-a4f81e033484']
 
-const Careers = styled((props: SectionProps) => {
-  return (
-    <Box {...props}>
-      <Heading Text={UnderlineText} variant="heading4">
-        Join our growing team at k/f
-      </Heading>
-      <Grid as={List} columns={1} gap="20px">
-        <StaticQuery query={jobsQuery}>
-          {({ allLever }) =>
-            (allLever.edges as LeverEdge[])
-              .filter(({ node }) => typeof node.hostedUrl === 'string' && !EXCLUDED_JOBS.includes(node.hostedUrl))
-              .map(({ node }) => {
-                const TextComponent = (props: TextProps) => (
-                  <UnderlineLink href={node.hostedUrl ?? ''} target="_blank" {...props} />
-                )
-                return <Item key={node.id} Text={TextComponent} children={node.text} />
-              })
-          }
-        </StaticQuery>
-      </Grid>
-    </Box>
-  )
-})`
+const Careers = styled((props: BoxProps) => (
+  <Box {...props}>
+    <Heading Text={UnderlineText} variant="heading4">
+      Join our growing team at k/f
+    </Heading>
+    <Grid as={List} columns={1} gap="20px">
+      <StaticQuery query={jobsQuery}>
+        {({ allLever }) =>
+          (allLever.edges as LeverEdge[])
+            .filter(({ node }) => typeof node.hostedUrl === 'string' && !EXCLUDED_JOBS.includes(node.hostedUrl))
+            .map(({ node }) => {
+              const TextComponent = (props: TextProps) => (
+                <UnderlineLink href={node.hostedUrl ?? ''} target="_blank" {...props} />
+              )
+              return <Item key={node.id} Text={TextComponent} children={node.text} />
+            })
+        }
+      </StaticQuery>
+    </Grid>
+  </Box>
+))`
   ul {
     margin: 0;
     padding: 0;
@@ -83,7 +67,7 @@ const Gradient = styled((props: BoxProps) => (
   </Box>
 ))``
 
-export interface HiringEmail extends BoxProps {
+export interface HiringEmailProps extends BoxProps {
   email: string
 }
 
@@ -91,37 +75,39 @@ const HiringEmailLink = (props: LinkProps) => (
   <Link whiteSpace="nowrap" textDecoration="none" fontSize="32px" fontWeight="600" {...props} />
 )
 
-const HiringEmail = styled(({ email, ...rest }) => (
+const HiringEmail = styled(({ email, ...rest }: HiringEmailProps) => (
   <Box as={HiringEmailLink} href={`mailto:${email}`} target="_blank" children={email} {...rest} />
 ))`
   transform-origin: top right;
   transform: rotate(-90deg) translateY(-100%);
 `
 
-export const SidebarHiring = styled((props: FlexProps) => (
-  <Flex
-    as={Sidebar}
-    flexDirection={{ L: 'column' }}
-    ml={[2, 3, 4, 0]}
-    my={[2, 2, 2, 0]}
-    maxHeight={{ L: '100vh' }}
-    maxWidth={{ L: '340px' }}
-    borderWidth={['2px 0', '2px 0', '2px 0', '0 0 0 2px']}
-    borderStyle="solid"
-    borderColor="borderPrimary"
-    position={{ L: 'fixed' }}
-    top="0"
-    bottom="0"
-    right="0"
-    overflow="visible"
-    {...props}
-  >
-    <Box position="relative" flex="1">
-      <Careers width="260px" flex="1" py={[2, 2, 2, 3]} px={{ L: 3 }} />
-      <HiringEmail position="absolute" top={[2, 2, 2, 4]} right={[0, 0, 0, '100%']} email="work@k-f.co" />
-    </Box>
-    <Gradient flex={['1', '1', '1', '0']} maxWidth={['336px', '336px', '336px', '100%']} />
-  </Flex>
-))<BoxProps>``
+export function SidebarHiring(props: BoxProps) {
+  return (
+    <Flex
+      as={Sidebar}
+      flexDirection={{ L: 'column' }}
+      position={{ L: 'fixed' }}
+      maxHeight={{ L: '100vh' }}
+      maxWidth={{ L: '340px' }}
+      ml={[2, 3, 4, 0]}
+      my={[2, 2, 2, 0]}
+      borderWidth={['2px 0', '2px 0', '2px 0', '0 0 0 2px']}
+      borderStyle="solid"
+      borderColor="borderPrimary"
+      top="0"
+      bottom="0"
+      right="0"
+      overflow="visible"
+      {...props}
+    >
+      <Box position="relative" flex="1">
+        <Careers width="260px" py={[2, 2, 2, 3]} px={{ L: 3 }} />
+        <HiringEmail position="absolute" top={[2, 2, 2, 4]} right={[0, 0, 0, '100%']} email="work@k-f.co" />
+      </Box>
+      <Gradient flex={['1', '1', '1', '0']} maxWidth={['336px', '336px', '336px', '100%']} />
+    </Flex>
+  )
+}
 
 export default SidebarHiring

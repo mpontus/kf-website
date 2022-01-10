@@ -13,5 +13,6 @@ module.exports = {
   rules: {
     indent: [`error`, 2, { SwitchCase: 1 }],
     'prettier/prettier': [`error`],
+    '@typescript-eslint/no-explicit-any': 0,
   },
 }
