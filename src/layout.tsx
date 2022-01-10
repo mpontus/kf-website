@@ -99,7 +99,7 @@ const DefaultHeader: React.FC = () => (
 
 const DefaultFooter: React.FC = () => (
   <Footer textAlign="center">
-    <Paragraph marginBottom={0}>k/factory is a contributor to</Paragraph>
+    <Paragraph m={0}>k/factory is a contributor to</Paragraph>
 
     <Image
       src={
@@ -111,7 +111,7 @@ const DefaultFooter: React.FC = () => (
       my={3}
     />
 
-    <Paragraph marginBottom={0}>k-f dev AG, Grafenauweg 8, 6300 Zug</Paragraph>
+    <Paragraph m={0}>k-f dev AG, Grafenauweg 8, 6300 Zug</Paragraph>
   </Footer>
 )
 
