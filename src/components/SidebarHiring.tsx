@@ -3,7 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { LeverEdge } from '../../graphql-types'
 import { Box, BoxProps, Flex, Grid, Heading, Item, Link, LinkProps, List, Text, TextProps } from '../components'
-import { Sidebar } from '../layout'
+import { AddressParagraph, Sidebar } from '../layout'
 
 const jobsQuery = graphql`
   query JobsQuery {
@@ -59,12 +59,16 @@ const Careers = styled((props: BoxProps) => (
   }
 `
 
-const Gradient = styled((props: BoxProps) => (
-  <Box {...props}>
-    {['#FCD1E3', '#FCB3D2', '#FC86B7', '#FC6CA9', '#FC539A', '#FC3A8B', '#FC1475'].map((color) => (
-      <Box key={color} height="62px" background={color} />
+const colors = ['#FCD1E3', '#FCB3D2', '#FC86B7', '#FC6CA9', '#FC539A', '#FC3A8B', '#FC1475'].reverse()
+const Gradient = styled(({ children, ...rest }: BoxProps) => (
+  <Flex flexDirection="column-reverse" {...rest}>
+    <Box minHeight={['62px', '62px', '62px', 'auto']} background={colors[0]}>
+      <AddressParagraph display={['none', 'none', 'none', 'block']} p={2} />
+    </Box>
+    {colors.slice(1).map((color) => (
+      <Box key={color} minHeight="62px" background={color} />
     ))}
-  </Box>
+  </Flex>
 ))``
 
 export interface HiringEmailProps extends BoxProps {
@@ -87,17 +91,14 @@ export function SidebarHiring(props: BoxProps) {
     <Flex
       as={Sidebar}
       flexDirection={{ L: 'column' }}
-      position={{ L: 'fixed' }}
+      position={{ L: 'sticky' }}
+      top={{ L: '0' }}
       maxHeight={{ L: '100vh' }}
-      maxWidth={{ L: '340px' }}
       ml={[2, 3, 4, 0]}
       my={[2, 2, 2, 0]}
       borderWidth={['2px 0', '2px 0', '2px 0', '0 0 0 2px']}
       borderStyle="solid"
       borderColor="borderPrimary"
-      top="0"
-      bottom="0"
-      right="0"
       overflow="visible"
       {...props}
     >
@@ -105,7 +106,7 @@ export function SidebarHiring(props: BoxProps) {
         <Careers width="260px" py={[2, 2, 2, 3]} px={{ L: 3 }} />
         <HiringEmail position="absolute" top={[2, 2, 2, 4]} right={[0, 0, 0, '100%']} email="work@k-f.co" />
       </Box>
-      <Gradient flex={['1', '1', '1', '0']} maxWidth={['336px', '336px', '336px', '100%']} />
+      <Gradient overflow="hidden" flex="1" maxWidth={['336px', '336px', '336px', '100%']} />
     </Flex>
   )
 }

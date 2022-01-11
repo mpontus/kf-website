@@ -3,7 +3,7 @@ import { MDXProvider } from '@mdx-js/react'
 import * as Gatsby from 'gatsby'
 import React, { memo } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import { Box, BoxProps, Image, Paragraph, Text, shortcodes } from './components'
+import { Box, BoxProps, Image, Paragraph, Text, shortcodes, ParagraphProps } from './components'
 import { SEO } from './components/SEO'
 import { theme } from './theme'
 import { ModalProvider } from 'react-modal-hook'
@@ -59,7 +59,7 @@ export const Header = styled((props: BoxProps) => <Box as="header" minHeight="he
   grid-area: head;
 `
 
-export const Footer = styled((props: BoxProps) => <Box as="footer" mb="20px" p={[2, 3, 4]} {...props} />)`
+export const Footer = styled((props: BoxProps) => <Box as="footer" p={[2, 3, 4]} {...props} />)`
   grid-area: foot;
 `
 
@@ -81,7 +81,7 @@ export const Layout = styled((props: BoxProps) => <Box maxWidth="container" mx="
       \". head . side\"
       \". main . side\"
       \". foot . side\";
-    grid-template-columns: 1fr auto 1fr 260px
+    grid-template-columns: 1fr auto 1fr 340px
   }`}
 `
 
@@ -97,13 +97,19 @@ const DefaultHeader: React.FC = () => (
   </Header>
 )
 
-const DefaultFooter: React.FC = () => (
-  <Footer mb="24px">
-    <Paragraph textAlign="center" my={0}>
+export function AddressParagraph(props: ParagraphProps) {
+  return (
+    <Paragraph textAlign="center" my={0} {...props}>
       k-f dev AG, Grafenauweg 8, 6300 Zug,
       <br />
       Switzerland
     </Paragraph>
+  )
+}
+
+const DefaultFooter: React.FC = () => (
+  <Footer mb="24px" p={[2, 3, 4, 0]}>
+    <AddressParagraph display={{ L: 'none' }} />
   </Footer>
 )
 
