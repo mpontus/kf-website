@@ -2,11 +2,11 @@ import { GlobalStyle } from '@centrifuge/fabric'
 import { MDXProvider } from '@mdx-js/react'
 import * as Gatsby from 'gatsby'
 import React, { memo } from 'react'
+import { ModalProvider } from 'react-modal-hook'
 import styled, { ThemeProvider } from 'styled-components'
-import { Box, BoxProps, Image, Paragraph, Text, shortcodes, ParagraphProps } from './components'
+import { Box, BoxProps, Flex, Image, Paragraph, ParagraphProps, shortcodes } from './components'
 import { SEO } from './components/SEO'
 import { theme } from './theme'
-import { ModalProvider } from 'react-modal-hook'
 
 // Providers
 type Decorator<R = unknown> = <P>(Component: React.ComponentType<P>) => React.FC<R & P>
@@ -71,10 +71,7 @@ export const Sidebar = styled((props: BoxProps) => <Box as="aside" {...props} />
   grid-area: side;
 `
 
-export const Layout = styled((props: BoxProps) => <Box maxWidth="container" mx="auto" {...props} />)`
-  display: flex;
-  flex-direction: column;
-
+export const Layout = styled((props: BoxProps) => <Flex flexDirection="column" {...props} />)`
   ${({ theme }) => `${theme.mediaQueries.large} {
     display: grid;
     grid:

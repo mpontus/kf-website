@@ -58,7 +58,6 @@ const typography = {
 }
 const sizes = {
   ...baseTheme.sizes,
-  container: 1680,
   section: 920,
   modal: 720,
 }
