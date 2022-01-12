@@ -1,6 +1,6 @@
 import * as Fabric from '@centrifuge/fabric'
 import * as FabricFlex from '@centrifuge/fabric/dist/components/Flex'
-import React, { AnchorHTMLAttributes, ImgHTMLAttributes } from 'react'
+import React, { AnchorHTMLAttributes } from 'react'
 import styled, { DefaultTheme } from 'styled-components'
 import { ColorProps, system, TypographyProps } from 'styled-system'
 
@@ -12,7 +12,7 @@ export function forwardAs<T, P>(
 
 // Box
 
-export interface BoxProps extends Fabric.StyledBoxProps {
+export interface BoxProps extends Omit<React.HTMLAttributes<never>, 'color'>, Fabric.StyledBoxProps {
   as?: string | React.ComponentType
   transform?: string
   children?: React.ReactNode
@@ -95,7 +95,13 @@ export const a = Link
 
 // Images
 
-export interface ImageProps extends BoxProps, Omit<ImgHTMLAttributes<'img'>, 'width' | 'height' | 'color'> {}
+export interface ImageProps
+  extends Fabric.StyledBoxProps,
+    Omit<React.ImgHTMLAttributes<never>, 'width' | 'height' | 'color'> {
+  as?: string | React.ComponentType
+  transform?: string
+  children?: React.ReactNode
+}
 export function Image(props: ImageProps) {
   return <Box as="img" {...props} />
 }
