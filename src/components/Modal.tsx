@@ -3,7 +3,6 @@ import AriaModal, { AriaModalProps } from 'react-aria-modal'
 import styled from 'styled-components'
 import { Box, BoxProps, Text } from '../components'
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ModalProps extends BoxProps, Omit<AriaModalProps, 'titleId'> {
   titleText: string
 }
