@@ -16,14 +16,18 @@ const Poster = styled(({ src, ...rest }: PosterProps) => (
     backgroundSize="contain"
     {...rest}
   >
-    <Text fontSize="96px">▶</Text>
+    <Text as="button" fontSize="96px">
+      ▸
+    </Text>
   </Box>
 ))<PosterProps>`
   cursor: pointer;
-  > * {
+  button {
+    background: none;
+    border: none;
     opacity: 0.8;
   }
-  &:hover > * {
+  &:hover button {
     opacity: 1;
   }
 `
