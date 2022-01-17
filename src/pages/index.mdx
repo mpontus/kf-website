@@ -7,7 +7,6 @@ import { Box, Link, Heading, Paragraph, Image } from '../components'
 import { Section } from '../components/Section'
 import { SidebarHiring } from '../components/SidebarHiring'
 import { SpinningText, Scene } from '../components/HeroSpinningText'
-import { Ratio } from '../components/Ratio'
 import { YoutubeVideo } from '../components/YoutubeVideo'
 
 export default styled(withSidebar(<SidebarHiring />))``
@@ -89,11 +88,4 @@ Learn more about who we are and why you should join below.
 
 <!-- Video -->
 
-<Ratio ratio={16 / 9} mb={4}>
-  <YoutubeVideo
-    width="100%"
-    height="100%"
-    videoId="h8tfJ9EtIpY"
-    posterUrl={require('../images/video-preview.jpg').default}
-  />
-</Ratio>
+<YoutubeVideo videoId="h8tfJ9EtIpY" posterUrl={require('../images/video-preview.jpg').default} mb={4} />

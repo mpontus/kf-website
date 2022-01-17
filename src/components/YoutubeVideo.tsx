@@ -1,7 +1,33 @@
 import { nanoid } from 'nanoid'
 import React, { useCallback, useEffect, useState } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Box, BoxProps, Text } from '../components'
+
+type RatioProps = BoxProps & {
+  ratio?: number
+}
+
+const Ratio = styled(Box)<RatioProps>`
+  display: grid;
+
+  > * {
+    grid-row: 1 / -1;
+    grid-column: 1 / -1;
+  }
+
+  ${({ ratio }) =>
+    ratio &&
+    css`
+      :after {
+        z-index: -1;
+        content: '';
+        display: block;
+        grid-row: 1 / -1;
+        grid-column: 1 / -1;
+        padding-bottom: ${100 / ratio}%;
+      }
+    `}
+`
 
 type PosterProps = BoxProps & {
   as?: BoxProps['as']
@@ -74,7 +100,7 @@ export function YoutubeVideo(props: VideoProps) {
   }, [player, isPosterShown])
 
   return (
-    <Box position="relative" width="100%" height="100%" {...rest}>
+    <Ratio ratio={16 / 9} position="relative" {...rest}>
       {isPosterShown && posterUrl && (
         <Poster
           src={posterUrl}
@@ -87,6 +113,6 @@ export function YoutubeVideo(props: VideoProps) {
         />
       )}
       <div id={elementId} />
-    </Box>
+    </Ratio>
   )
 }
