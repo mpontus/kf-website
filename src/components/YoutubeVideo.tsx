@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Box, BoxProps, Text } from '../components'
 
@@ -38,32 +38,37 @@ export type VideoProps = BoxProps & {
   posterUrl?: string
 }
 
-function useYoutubePlayer(elementId: string, options: YT.PlayerOptions): YT.Player | undefined {
+export function YoutubeVideo(props: VideoProps) {
+  const { videoId, posterUrl, ...rest } = props
+  const [elementId, setElementId] = useState<string>()
   const [player, setPlayer] = useState<YT.Player>()
-  const onYouTubeIframeAPIReady = () => {
-    const events = { ...options.events, onReady: () => setPlayer(player) }
-    const playerVars = { ...options.playerVars, origin: window.location.origin }
-    const player = new window.YT.Player(elementId, { ...options, events, playerVars })
-  }
+  const [isPosterShown, setPosterShown] = useState(posterUrl !== undefined)
+  const handlePosterClick = useCallback(() => setPosterShown(false), [])
+
   useEffect(() => {
+    if (!elementId) {
+      setElementId(nanoid())
+      return
+    }
+    const onYouTubeIframeAPIReady = () => {
+      const player: YT.Player = new window.YT.Player(elementId, {
+        videoId,
+        width: '100%',
+        height: '100%',
+        playerVars: { origin: window.location.origin },
+        events: { onReady: () => setPlayer(player) },
+      })
+    }
     if (window.YT) {
-      return onYouTubeIframeAPIReady()
+      onYouTubeIframeAPIReady()
+      return
     }
     const script = document.createElement('script')
     script.src = 'https://www.youtube.com/iframe_api'
     document.querySelector('head')?.appendChild(script)
     Object.assign(window, { onYouTubeIframeAPIReady })
-  }, [])
+  }, [elementId])
 
-  return player
-}
-
-export function YoutubeVideo(props: VideoProps) {
-  const { videoId, width, height, posterUrl, ...rest } = props
-  const elementId = useMemo(nanoid, [])
-  const player = useYoutubePlayer(elementId, { videoId, width: '100%', height: '100%' })
-  const [isPosterShown, setPosterShown] = useState(posterUrl !== undefined)
-  const handlePosterClick = useCallback(() => setPosterShown(false), [])
   useEffect(() => {
     player && (isPosterShown ? player.seekTo(0, true) : player.playVideo())
   }, [player, isPosterShown])
