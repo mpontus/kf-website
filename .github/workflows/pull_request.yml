@@ -55,4 +55,4 @@ jobs:
         with:
           path: node_modules
           key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}
-      - run: yarn publish -a $PINATA_JWT
+      - run: yarn pin -a $PINATA_JWT
