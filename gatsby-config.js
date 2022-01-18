@@ -25,5 +25,7 @@ module.exports = {
       },
     },
     'gatsby-plugin-react-helmet',
+    'gatsby-plugin-relative-paths',
   ],
+  assetPrefix: '__GATSBY_RELATIVE_PATH__',
 }
