@@ -2,8 +2,9 @@ import { GlobalStyle } from '@centrifuge/fabric'
 import { MDXProvider } from '@mdx-js/react'
 import * as Gatsby from 'gatsby'
 import React, { memo } from 'react'
+import { ModalProvider } from 'react-modal-hook'
 import styled, { ThemeProvider } from 'styled-components'
-import { Box, BoxProps, Grid, Image, Paragraph, shortcodes } from './components'
+import { Box, BoxProps, Flex, Image, Paragraph, ParagraphProps, shortcodes } from './components'
 import { SEO } from './components/SEO'
 import { theme } from './theme'
 
@@ -27,13 +28,19 @@ const withThemeProvider: Decorator = (Component) => (props) =>
     </ThemeProvider>
   )
 
+const withModalProvider: Decorator = (Component) => (props) =>
+  (
+    <ModalProvider>
+      <Component {...props} />
+    </ModalProvider>
+  )
+
 interface PageContext {
   frontmatter: NodeJS.Dict<any>
 }
 
 const withSEO: Decorator<Gatsby.PageProps<unknown, PageContext>> = (Component) => (props) => {
   const { title, description, image, article } = props.pageContext.frontmatter
-  console.log({ props })
 
   return (
     <SEO title={title} description={description} image={image} article={article}>
@@ -43,20 +50,20 @@ const withSEO: Decorator<Gatsby.PageProps<unknown, PageContext>> = (Component) =
 }
 
 function enhance<P>(component: React.ComponentType<P>) {
-  return withSEO(withThemeProvider(withMDXProvider(memo(component))))
+  return withSEO(withThemeProvider(withMDXProvider(withModalProvider(memo(component)))))
 }
 
 // Layout
 
-export const Header = styled((props: BoxProps) => <Box as="header" minHeight="header" p="4" {...props} />)`
+export const Header = styled((props: BoxProps) => <Box as="header" minHeight="header" p={[2, 3, 4]} {...props} />)`
   grid-area: head;
 `
 
-export const Footer = styled((props: BoxProps) => <Box as="footer" p={4} {...props} />)`
+export const Footer = styled((props: BoxProps) => <Box as="footer" p={[2, 3, 4]} {...props} />)`
   grid-area: foot;
 `
 
-export const Main = styled((props: BoxProps) => <Grid as="main" px={4} columns={1} {...props} />)`
+export const Main = styled((props: BoxProps) => <Box as="main" overflow="hidden" px={[2, 3, 4]} {...props} />)`
   grid-area: main;
 `
 
@@ -64,17 +71,14 @@ export const Sidebar = styled((props: BoxProps) => <Box as="aside" {...props} />
   grid-area: side;
 `
 
-export const Layout = styled((props: BoxProps) => <Box maxWidth="container" mx="auto" {...props} />)`
-  display: flex;
-  flex-direction: column;
-
+export const Layout = styled((props: BoxProps) => <Flex flexDirection="column" {...props} />)`
   ${({ theme }) => `${theme.mediaQueries.large} {
     display: grid;
     grid:
       \". head . side\"
       \". main . side\"
       \". foot . side\";
-    grid-template-columns: 1fr auto 1fr 260px
+    grid-template-columns: 1fr auto 1fr 340px
   }`}
 `
 
@@ -90,21 +94,19 @@ const DefaultHeader: React.FC = () => (
   </Header>
 )
 
+export function AddressParagraph(props: ParagraphProps) {
+  return (
+    <Paragraph textAlign="center" my={0} {...props}>
+      k-f dev AG, Grafenauweg 8, 6300 Zug,
+      <br />
+      Switzerland
+    </Paragraph>
+  )
+}
+
 const DefaultFooter: React.FC = () => (
-  <Footer textAlign="center">
-    <Paragraph marginBottom={0}>k/factory is a contributor to</Paragraph>
-
-    <Image
-      src={
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        require('./images/centrifuge-logo.svg').default
-      }
-      width={183}
-      height={55}
-      my={3}
-    />
-
-    <Paragraph marginBottom={0}>k-f dev AG, Grafenauweg 8, 6300 Zug</Paragraph>
+  <Footer mb="24px" p={[2, 3, 4, 0]}>
+    <AddressParagraph display={{ L: 'none' }} />
   </Footer>
 )
 
@@ -125,5 +127,3 @@ export const withSidebar = (sidebar: React.ReactNode) =>
       <DefaultFooter />
     </Layout>
   ))
-
-export default DefaultLayout

@@ -16,7 +16,7 @@ const typography = {
   body1: {
     fontSize: [`16px`, `16px`, `18px`],
     fontWeight: 400,
-    lineHeight: 1.5,
+    lineHeight: [1.3, 1.3, 1.4],
   },
   body2: {
     fontSize: [`14px`, `14px`, `16px`],
@@ -24,14 +24,9 @@ const typography = {
     lineHeight: 1.5,
   },
   heading1: {
-    fontSize: '4rem',
+    fontSize: ['3rem', '3rem', '4rem'],
     fontWeight: 600,
     lineHeight: [0.6, 1],
-    ':after': {
-      content: 'foo',
-      display: 'block',
-      background: 'red',
-    },
   },
   heading2: {
     fontSize: '3rem',
@@ -63,8 +58,8 @@ const typography = {
 }
 const sizes = {
   ...baseTheme.sizes,
-  container: 1680,
   section: 920,
+  modal: 720,
 }
 const space = [0, 8, 16, 24, 40, 64]
 const fonts = {
