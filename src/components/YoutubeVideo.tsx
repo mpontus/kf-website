@@ -1,33 +1,22 @@
 import { nanoid } from 'nanoid'
 import React, { useCallback, useEffect, useState } from 'react'
-import styled, { css } from 'styled-components'
-import { Box, BoxProps, Text } from '../components'
+import styled from 'styled-components'
+import { Box, BoxProps, forwardAs, Text } from '../components'
 
 type RatioProps = BoxProps & {
-  ratio?: number
+  ratio: number
 }
 
-const Ratio = styled(Box)<RatioProps>`
-  display: grid;
-
-  > * {
-    grid-row: 1 / -1;
-    grid-column: 1 / -1;
-  }
-
-  ${({ ratio }) =>
-    ratio &&
-    css`
-      :after {
-        z-index: -1;
-        content: '';
-        display: block;
-        grid-row: 1 / -1;
-        grid-column: 1 / -1;
-        padding-bottom: ${100 / ratio}%;
-      }
-    `}
-`
+export const Ratio = forwardAs(
+  styled(({ ratio, children, ...rest }: RatioProps) => (
+    <Box position="relative" {...rest}>
+      <Box pb={`${100 / ratio}%`} />
+      <Box position="absolute" top="0" left="0" right="0" bottom="0">
+        {children}
+      </Box>
+    </Box>
+  ))``
+)
 
 type PosterProps = BoxProps & {
   as?: BoxProps['as']
