@@ -9,13 +9,7 @@ module.exports = {
   plugins: [
     `gatsby-plugin-mdx`,
     `gatsby-plugin-ts`,
-    {
-      resolve: `gatsby-plugin-google-fonts`,
-      options: {
-        fonts: [`Manrope:300,600`, `Questrial:300`],
-        display: `swap`,
-      },
-    },
+    `gatsby-plugin-postcss`,
     'gatsby-plugin-styled-components',
     {
       resolve: `gatsby-source-lever`,
@@ -25,5 +19,7 @@ module.exports = {
       },
     },
     'gatsby-plugin-react-helmet',
+    'gatsby-plugin-relative-paths',
   ],
+  assetPrefix: '__GATSBY_RELATIVE_PATH__',
 }
