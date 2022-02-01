@@ -1,0 +1,19 @@
+name: Deploy to IPFS
+on:
+  push
+  # push:
+  #   branches:
+  #     - main
+env:
+  PINATA_JWT: ${{ secrets.PINATA_JWT }}
+jobs:
+  pin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}
+      - run: yarn
+      - run: yarn pin -a $PINATA_JWT
