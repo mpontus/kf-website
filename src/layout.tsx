@@ -1,3 +1,4 @@
+import './global.css'
 import { GlobalStyle } from '@centrifuge/fabric'
 import { MDXProvider } from '@mdx-js/react'
 import * as Gatsby from 'gatsby'

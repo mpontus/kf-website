@@ -1,0 +1,22 @@
+name: Deploy to IPFS
+on:
+  push
+  # push:
+  #   branches:
+  #     - main
+jobs:
+  pin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}
+      - run: yarn && yarn build
+      - uses: aquiladev/ipfs-action@v0.2.0
+        with:
+          path: ./public
+          service: pinata
+          pinataKey: ${{ secrets.PINATA_API_KEY }}
+          pinataSecret: ${{ secrets.PINATA_API_SECRET }}
