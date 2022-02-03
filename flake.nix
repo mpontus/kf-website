@@ -21,8 +21,3 @@
         devShell = pkgs.mkShell { buildInputs = [ yarn ]; };
       });
 }
-
-# Local Variables:
-# compile-command: "nix build"
-# eval: (add-hook 'after-save-hook 'recompile nil t)
-# End:
