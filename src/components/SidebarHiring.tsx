@@ -1,23 +1,8 @@
-import { graphql, StaticQuery } from 'gatsby'
 import React from 'react'
 import styled from 'styled-components'
-import { LeverEdge } from '../../graphql-types'
-import { Box, BoxProps, Flex, Grid, Heading, Item, Link, LinkProps, List, Text, TextProps } from '../components'
+import { Box, BoxProps, Flex, Grid, Heading, Link, LinkProps, List, Text, TextProps } from '../components'
 import { AddressParagraph, Sidebar } from '../layout'
-
-const jobsQuery = graphql`
-  query JobsQuery {
-    allLever {
-      edges {
-        node {
-          id
-          text
-          hostedUrl
-        }
-      }
-    }
-  }
-`
+import { SectionProps } from './Section'
 
 const UnderlineText = (props: TextProps) => <Text textDecoration="underline" {...props} />
 const UnderlineLink = styled(Link)<LinkProps>`
@@ -29,27 +14,16 @@ const UnderlineLink = styled(Link)<LinkProps>`
 
 const EXCLUDED_JOBS = ['https://jobs.lever.co/centrifuge/c0f7a908-8d9e-4f3c-9b15-a4f81e033484']
 
-const Careers = styled((props: BoxProps) => (
-  <Box {...props}>
-    <Heading Text={UnderlineText} variant="heading4">
-      Join our growing team at k/f
-    </Heading>
-    <Grid as={List} columns={1} gap="20px">
-      <StaticQuery query={jobsQuery}>
-        {({ allLever }) =>
-          (allLever.edges as LeverEdge[])
-            .filter(({ node }) => typeof node.hostedUrl === 'string' && !EXCLUDED_JOBS.includes(node.hostedUrl))
-            .map(({ node }) => {
-              const TextComponent = (props: TextProps) => (
-                <UnderlineLink href={node.hostedUrl ?? ''} target="_blank" {...props} />
-              )
-              return <Item key={node.id} Text={TextComponent} children={node.text} />
-            })
-        }
-      </StaticQuery>
-    </Grid>
-  </Box>
-))`
+const Careers = styled((props: SectionProps) => {
+  return (
+    <Box {...props}>
+      <Heading Text={UnderlineText} variant="heading4">
+        Join our growing team at k/f
+      </Heading>
+      <Grid as={List} columns={1} gap="20px"></Grid>
+    </Box>
+  )
+})`
   ul {
     margin: 0;
     padding: 0;

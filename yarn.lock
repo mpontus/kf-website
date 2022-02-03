@@ -6075,27 +6075,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"deep-map-keys@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "deep-map-keys@npm:1.2.0"
-  dependencies:
-    es6-weak-map: ^2.0.1
-    lodash: ^4.13.1
-  checksum: cf3ea4ff9a1e246920bef4fbed75db712d3c49dde0e0f495d94a77ef4957942e1d604781fa7272cdf61e56a94884a858eaf1d6879e0ea080d474d994116c379b
-  languageName: node
-  linkType: hard
-
-"deep-map@npm:^1.5.0":
-  version: 1.5.0
-  resolution: "deep-map@npm:1.5.0"
-  dependencies:
-    es6-weak-map: ^2.0.2
-    lodash: ^4.17.4
-    tslib: ^1.6.0
-  checksum: 7684320f4e90f5b038461d1ecefe7df1c3a978a6edcd81e4338299d8f86ecee12507af3cf98e09904d826472d2e521307fd09ef06e074c678613a70e893373cf
-  languageName: node
-  linkType: hard
-
 "deepmerge@npm:^4.2.2":
   version: 4.2.2
   resolution: "deepmerge@npm:4.2.2"
@@ -6753,7 +6732,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es6-weak-map@npm:^2.0.1, es6-weak-map@npm:^2.0.2, es6-weak-map@npm:^2.0.3":
+"es6-weak-map@npm:^2.0.3":
   version: 2.0.3
   resolution: "es6-weak-map@npm:2.0.3"
   dependencies:
@@ -8347,23 +8326,6 @@ __metadata:
     xstate: ^4.9.1
     yoga-layout-prebuilt: ^1.9.6
   checksum: 5f309442e971cb9d5551cab21bcc54a677c8908c90ab7ce6b0d49a2cc2b06c96dac13901a3f812e4c877fc7885abe585ed89ea18ce8098ad83d4d60908a66244
-  languageName: node
-  linkType: hard
-
-"gatsby-source-lever@npm:^4.6.0":
-  version: 4.6.0
-  resolution: "gatsby-source-lever@npm:4.6.0"
-  dependencies:
-    "@babel/runtime": ^7.15.4
-    axios: ^0.21.1
-    bluebird: ^3.7.2
-    deep-map: ^1.5.0
-    deep-map-keys: ^1.2.0
-    json-stringify-safe: ^5.0.1
-    lodash: ^4.17.21
-  peerDependencies:
-    gatsby: ^4.0.0-next
-  checksum: c16b4f0132c7ac69368cab984e6f312b2eccf85b59a9fab6db6fbe563ba55a5d67df5a4bf5d4933f2c7e65dc6ffd40d16ecad266a337842192d2f2ed037a8031
   languageName: node
   linkType: hard
 
@@ -10434,13 +10396,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"json-stringify-safe@npm:^5.0.1":
-  version: 5.0.1
-  resolution: "json-stringify-safe@npm:5.0.1"
-  checksum: 48ec0adad5280b8a96bb93f4563aa1667fd7a36334f79149abd42446d0989f2ddc58274b479f4819f1f00617957e6344c886c55d05a4e15ebb4ab931e4a6a8ee
-  languageName: node
-  linkType: hard
-
 "json5@npm:^1.0.1":
   version: 1.0.1
   resolution: "json5@npm:1.0.1"
@@ -10534,7 +10489,6 @@ __metadata:
     gatsby-plugin-styled-components: ^5.6.0
     gatsby-plugin-ts: ^3.1.1
     gatsby-plugin-tsconfig-paths: ^1.0.5
-    gatsby-source-lever: ^4.6.0
     husky: ^7.0.4
     nanoid: ^3.2.0
     pinata-upload-cli: ^1.0.4
@@ -10912,7 +10866,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:4.17.21, lodash@npm:^4.13.1, lodash@npm:^4.17.10, lodash@npm:^4.17.11, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.20, lodash@npm:^4.17.21, lodash@npm:^4.17.4, lodash@npm:~4.17.0":
+"lodash@npm:4.17.21, lodash@npm:^4.17.10, lodash@npm:^4.17.11, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.20, lodash@npm:^4.17.21, lodash@npm:^4.17.4, lodash@npm:~4.17.0":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: eb835a2e51d381e561e508ce932ea50a8e5a68f4ebdd771ea240d3048244a8d13658acbd502cd4829768c56f2e16bdd4340b9ea141297d472517b83868e677f7
@@ -15794,7 +15748,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^1.10.0, tslib@npm:^1.6.0, tslib@npm:^1.8.1, tslib@npm:^1.9.0":
+"tslib@npm:^1.10.0, tslib@npm:^1.8.1, tslib@npm:^1.9.0":
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: dbe628ef87f66691d5d2959b3e41b9ca0045c3ee3c7c7b906cc1e328b39f199bb1ad9e671c39025bd56122ac57dfbf7385a94843b1cc07c60a4db74795829acd

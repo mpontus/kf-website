@@ -11,13 +11,6 @@ module.exports = {
     `gatsby-plugin-ts`,
     `gatsby-plugin-postcss`,
     'gatsby-plugin-styled-components',
-    {
-      resolve: `gatsby-source-lever`,
-      options: {
-        site: `centrifuge`,
-        verboseOutput: false,
-      },
-    },
     'gatsby-plugin-react-helmet',
   ],
 }
