@@ -1,54 +1,50 @@
-<p align="center">
+<p align="center">``
   <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter">
     <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
   </a>
 </p>
 <h1 align="center">
-  Gatsby minimal starter
+  kf-website
 </h1>
 
-## 🚀 Quick start
+## Prerequisites
 
-1.  **Create a Gatsby site.**
+1. [Node.js](https://nodejs.org/) and [Yarn](https://yarnpkg.com/) are needed to build website and start the development server.
 
-    Use the Gatsby CLI to create a new site, specifying the minimal starter.
+2. [ipfs-cli](https://docs.ipfs.io/how-to/command-line-quick-start/) is needed to publish and pin website on ipfs.
 
-    ```shell
-    # create a new Gatsby site using the minimal starter
-    npm init gatsby
-    ```
+### Nix users
 
-2.  **Start developing.**
+Users of [NixOS](https://nixos.org/) and Nix package manager with [Nix Flakes](https://nixos.wiki/wiki/Flakes) enabled may take advatage of a complete development environent by running `nix develop`.
 
-    Navigate into your new site’s directory and start it up.
+## Development
 
-    ```shell
-    cd my-gatsby-site/
-    npm run develop
-    ```
+```shell
+# install dependencies
+yarn
 
-3.  **Open the code and start customizing!**
+# start a dev server and open the browser
+yarn start -o
+```
 
-    Your site is now running at http://localhost:8000!
+### Release build
 
-    Edit `src/pages/index.js` to see your site update in real-time!
+Run the following command to test release build of the website locally:
 
-4.  **Learn more**
+``` shell
+yarn build && yarn serve -o
 
-    - [Documentation](https://www.gatsbyjs.com/docs/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+```
+## Publish
 
-    - [Tutorials](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+**Optional:** Run the following command if you intend on pinning the website using pinning service such as [Pinata](https://pinata.cloud/): 
 
-    - [Guides](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+```shell
+# configure remote pinning service
+nix run ipfs pin remote service add pinata https://api.pinata.cloud/psa <PINATA_JWT>
 
-    - [API Reference](https://www.gatsbyjs.com/docs/api-reference/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+# build the website and publish it on ipfs
+nix build && ipfs add -rQ $(readlink result)
+```
 
-    - [Plugin Library](https://www.gatsbyjs.com/plugins?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-## 🚀 Quick start (Gatsby Cloud)
-
-Deploy this starter with one click on [Gatsby Cloud](https://www.gatsbyjs.com/cloud/):
-
-[<img src="https://www.gatsbyjs.com/deploynow.svg" alt="Deploy to Gatsby Cloud">](https://www.gatsbyjs.com/dashboard/deploynow?url=https://github.com/gatsbyjs/gatsby-starter-minimal)
+If successful, you will see CID which you can use to open the published website in the browser: `https://ipfs.io/ipfs/<CID>`.
