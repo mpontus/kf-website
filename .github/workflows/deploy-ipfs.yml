@@ -12,14 +12,14 @@ jobs:
 
       - uses: cachix/cachix-action@v8
         with:
-          name: centrifuge-chain
+          name: kf-website
           signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
 
       - name: build
         id: build
         run: |
           nix build
-          echo "::set-output name=dist::$(readlink result)
+          echo "::set-output name=dist::$(readlink result)"
 
       - name: upload artifact
         uses: actions/upload-artifact@v2
