@@ -10,13 +10,10 @@ jobs:
       - name: install Nix
         uses: cachix/install-nix-action@v15
 
-      - name: restore Nix eval cache
-        uses: actions/cache@v2
+      - uses: cachix/cachix-action@v8
         with:
-          path: "${{ env.XDG_CACHE_HOME }}/nix/eval-cache-v2"
-          key: ${{ runner.os }}-nix-${{ hashfiles('**/flake.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-nix-
+          name: centrifuge-chain
+          signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
 
       - name: build
         id: build
