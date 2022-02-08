@@ -8,12 +8,12 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: install Nix
-        uses: cachix/install-nix-action@v15
+        uses: cachix/install-nix-action@v16
 
       - uses: cachix/cachix-action@v8
         with:
           name: kf-website
-          signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
       - name: build
         id: build
@@ -47,7 +47,7 @@ jobs:
 
       - name: publish website on ipfs
         run: |
-          ipfs add -rQ kf-website | tee ipfs_cid
+          nix run ipfs add -rQ kf-website | tee ipfs_cid
 
       - name: save cid as an artifact
         uses: actions/upload-artifact@v2
