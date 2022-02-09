@@ -40,8 +40,14 @@ yarn build && yarn serve -o
 **Optional:** Run the following command if you intend on pinning the website using pinning service such as [Pinata](https://pinata.cloud/): 
 
 ```shell
-# configure remote pinning service
-nix run ipfs pin remote service add pinata https://api.pinata.cloud/psa <PINATA_JWT>
+# enter the devShell
+nix develop
+
+# initialize ipfs configuration (if not already exists)
+ipfs init
+
+# configure pinata as a remote pinning service
+ipfs pin remote service add pinata https://api.pinata.cloud/psa <PINATA_JWT>
 
 # build the website and publish it on ipfs
 nix build && ipfs add -rQ $(readlink result)
