@@ -12,5 +12,7 @@ module.exports = {
     `gatsby-plugin-postcss`,
     'gatsby-plugin-styled-components',
     'gatsby-plugin-react-helmet',
+    'gatsby-plugin-ipfs',
   ],
+  pathPrefix: '__GATSBY_IPFS_PATH_PREFIX__',
 }
