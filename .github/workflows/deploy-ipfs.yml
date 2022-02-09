@@ -44,19 +44,25 @@ jobs:
         run: nix profile install nixpkgs#ipfs
 
       - run: ipfs init
-      - run: ipfs daemon &
 
-      - name: configure pinning service
+      - name: configure a remote pinning service
         run: |
           ipfs pin remote service add pinata \
             https://api.pinata.cloud/psa \
             ${{ secrets.PINATA_JWT }}
 
-      - name: publish website on ipfs
-        run: |
-          ipfs add -rQ kf-website | tee ipfs_cid
+      - run: ipfs daemon &
 
-      - name: save cid as an artifact
+      - name: publish the website on ipfs
+        run: |
+          cid=$(ipfs add -rQ kf-website | tee ipfs_cid)
+          echo "::set-output name=cid::$cid"
+
+      - name: pin the website
+        run: |
+          ipfs pin remote add --service=pinata "${{ steps.publish.outputs.cid }}"
+
+      - name: store cid as an artifact
         uses: actions/upload-artifact@v2
         with:
           name: ipfs_cid-${{ github.sha }}
