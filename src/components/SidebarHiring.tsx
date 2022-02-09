@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import { Box, BoxProps, Flex, Grid, Heading, Link, LinkProps, List, Text, TextProps } from '../components'
+import { Box, BoxProps, Flex, Grid, Heading, Link, LinkProps, List, Item, Text, TextProps } from '../components'
+import { useLeverPostings } from '../hooks/use-lever-postings'
 import { AddressParagraph, Sidebar } from '../layout'
 import { SectionProps } from './Section'
 
@@ -15,12 +16,27 @@ const UnderlineLink = styled(Link)<LinkProps>`
 const EXCLUDED_JOBS = ['https://jobs.lever.co/centrifuge/c0f7a908-8d9e-4f3c-9b15-a4f81e033484']
 
 const Careers = styled((props: SectionProps) => {
+  const careers = useLeverPostings('centrifuge')
+
+  if (careers === undefined) {
+    return null
+  }
+
   return (
     <Box {...props}>
       <Heading Text={UnderlineText} variant="heading4">
         Join our growing team at k/f
       </Heading>
-      <Grid as={List} columns={1} gap="20px"></Grid>
+      <Grid as={List} columns={1} gap="20px">
+        {careers
+          .filter(({ hostedUrl }) => !EXCLUDED_JOBS.includes(hostedUrl))
+          .map((posting) => {
+            const TextComponent = (props: TextProps) => (
+              <UnderlineLink href={posting.hostedUrl ?? ''} target="_blank" {...props} />
+            )
+            return <Item key={posting.id} Text={TextComponent} children={posting.text} />
+          })}
+      </Grid>
     </Box>
   )
 })`
@@ -78,7 +94,7 @@ export function SidebarHiring(props: BoxProps) {
       {...props}
     >
       <Box position="relative" flex="1">
-        <Careers width="260px" py={[2, 2, 2, 3]} px={{ L: 3 }} />
+        <Careers width="270px" py={[2, 2, 2, 3]} px={{ L: 3 }} />
         <HiringEmail position="absolute" top={[2, 2, 2, 4]} right={[0, 0, 0, '100%']} email="work@k-f.co" />
       </Box>
       <Gradient overflow="hidden" flex="1" maxWidth={['336px', '336px', '336px', '100%']} />
