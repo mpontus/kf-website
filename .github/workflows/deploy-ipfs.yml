@@ -41,8 +41,10 @@ jobs:
         uses: cachix/install-nix-action@v16
 
       - name: install ipfs-cli
-        run: 
-          nix profile install nixpkgs#ipfs && ipfs init
+        run: nix profile install nixpkgs#ipfs
+
+      - run: ipfs init
+      - run: ipfs daemon &
 
       - name: configure pinning service
         run: |
