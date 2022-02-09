@@ -18,6 +18,6 @@
           installPhase = "mv public $out";
         });
 
-        devShell = pkgs.mkShell { buildInputs = [ yarn ]; };
+        devShell = pkgs.mkShell { buildInputs = [ yarn ipfs ]; };
       });
 }
