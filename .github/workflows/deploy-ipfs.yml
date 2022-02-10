@@ -37,21 +37,17 @@ jobs:
           name: kf-website-${{ github.sha }}
           path: kf-website
 
-      - name: install Nix
-        uses: cachix/install-nix-action@v16
+      - name: install ipfs
+        uses: ipfs/download-ipfs-distribution-action@v1
 
-      - name: install ipfs-cli
-        run: nix profile install nixpkgs#ipfs
-
-      - run: ipfs init
+      - name: start ipfs daemon
+        uses: ipfs/start-ipfs-daemon-action@v1
 
       - name: configure a remote pinning service
         run: |
           ipfs pin remote service add pinata \
             https://api.pinata.cloud/psa \
             ${{ secrets.PINATA_JWT }}
-
-      - run: ipfs daemon &
 
       - name: publish the website on ipfs
         run: |
