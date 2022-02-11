@@ -60,13 +60,14 @@ const Careers = styled((props: BoxProps) => (
 `
 
 const colors = ['#FCD1E3', '#FCB3D2', '#FC86B7', '#FC6CA9', '#FC539A', '#FC3A8B', '#FC1475'].reverse()
+
 const Gradient = styled((props: BoxProps) => (
   <Flex flexDirection="column-reverse" {...props}>
-    <Box minHeight={['62px', '62px', '62px', 'auto']} background={colors[0]}>
+    <Box flex={['1', '1', '1', '0']} minHeight={['62px', '62px', '62px', 'auto']} background={colors[0]}>
       <AddressParagraph display={['none', 'none', 'none', 'block']} p={2} />
     </Box>
     {colors.slice(1).map((color) => (
-      <Box key={color} minHeight="62px" background={color} />
+      <Box key={color} flex={['1', '1', '1', '0']} minHeight="62px" background={color} />
     ))}
   </Flex>
 ))``
