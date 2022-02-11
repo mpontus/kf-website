@@ -85,7 +85,7 @@ export function YoutubeVideo(props: VideoProps) {
   }, [elementId])
 
   useEffect(() => {
-    player && (isPosterShown ? player.seekTo(0, true) : player.playVideo())
+    player && (isPosterShown ? player.seekTo(0, false) : player.playVideo())
   }, [player, isPosterShown])
 
   return (
