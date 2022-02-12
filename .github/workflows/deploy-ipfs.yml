@@ -59,8 +59,9 @@ jobs:
         run: |
           ipfs pin remote add --service=pinata "${{ steps.publish.outputs.cid }}"
 
-      - name: store cid as an artifact
-        uses: actions/upload-artifact@v2
+      - uses: ouzi-dev/commit-status-updater@v1.1.0
         with:
-          name: ipfs_cid-${{ github.sha }}
-          path: ipfs_cid
+          status: success
+          name: IPFS Deploy
+          url: "https://ipfs.io/ipfs/${{ steps.publish.outputs.cid }}"
+          description: "CID: ${{ steps.publish.outputs.cid }}"
