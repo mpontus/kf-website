@@ -12,5 +12,7 @@ module.exports = {
     `gatsby-plugin-postcss`,
     'gatsby-plugin-styled-components',
     'gatsby-plugin-react-helmet',
+    'gatsby-plugin-relative-paths',
   ],
+  assetPrefix: '__GATSBY_RELATIVE_PATH__',
 }
