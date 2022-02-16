@@ -11,9 +11,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: .yarn/cache
-          key: ${{ runner.os }}-yarn-${{ hashfiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-yarn-v2-${{ hashfiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-yarn-v2
 
       - name: save `node_modules`
         uses: actions/cache@v2
